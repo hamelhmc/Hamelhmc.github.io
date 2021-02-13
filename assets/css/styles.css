@@ -393,6 +393,9 @@ img {
   align-items: center;
   font-size: var(--small-font-size);
   color: var(--text-color);
+  background-color: rgb(255, 255, 0, 0.1);
+  filter: blur(60%);
+  border-radius: 2rem;
 }
 
 .home__link:hover {
@@ -431,6 +434,9 @@ img {
   align-items: center;
   font-size: var(--small-font-size);
   color: var(--text-color);
+  background-color: rgb(255, 255, 0, 0.1);
+  filter: blur(90%);
+  border-radius: 2rem;
 }
 
 .social__link:hover {
