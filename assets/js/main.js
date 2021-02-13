@@ -95,9 +95,11 @@ let resumeButton = document.getElementById('resume-button');
 let opt = {
   margin: 0,
   filename: 'hamiltonmercadocuellarCV.pdf',
+  pagebreak: { mode: ['css', 'legacy'] },
+  enableLinks: true,
   image: { type: 'jpeg', quality: 0.98 },
   html2canvas: { scale: 4 },
-  jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
 };
 // Function to call areaCv and Html2Pdf options
 function gernerateResume() {

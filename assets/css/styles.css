@@ -126,7 +126,7 @@ body.scale-cv {
 .scale-cv .resume__left,
 .scale-cv .resume__right {
   padding: 0 1rem;
-  height: 296mm;
+  height: 296.8mm;
 }
 
 .scale-cv .home__img {
@@ -394,6 +394,7 @@ img {
   font-size: var(--small-font-size);
   color: var(--text-color);
   background-color: rgb(255, 255, 0, 0.1);
+  padding: 0 .5rem;
   filter: blur(60%);
   border-radius: 2rem;
 }
@@ -436,6 +437,7 @@ img {
   color: var(--text-color);
   background-color: rgb(255, 255, 0, 0.1);
   filter: blur(90%);
+  padding: 0 .5rem;
   border-radius: 2rem;
 }
 
