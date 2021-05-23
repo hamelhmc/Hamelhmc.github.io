@@ -1,478 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1.0">
-        <!--==========  Primary Meta Tags==========-->
-        <title>Hamilton Mercado Cuellar || Developer || Javascript* HTML* CSS* Angular* Java* .NET*
-            SQL*</title>
-        <meta name="title"
-              content="Hamilton Mercado Cuellar || Developer">
-        <meta name="description"
-              content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type"
-              content="website">
-        <meta property="og:url"
-              content="https://hamelshmc.github.io/">
-        <meta property="og:title"
-              content="Hamilton Mercado Cuellar || Developer">
-        <meta property="og:description"
-              content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
-        <meta property="og:image"
-              content="/assets/img/metadatos.png">
-        <!-- Twitter -->
-        <meta property="twitter:card"
-              content="summary_large_image">
-        <meta property="twitter:url"
-              content="https://hamelshmc.github.io/">
-        <meta property="twitter:title"
-              content="Hamilton Mercado Cuellar || Developer">
-        <meta property="twitter:description"
-              content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
-        <meta property="twitter:image"
-              content="/assets/img/metadatos.png">
-        <!--==========  GOOGLE FONTS ==========-->
-        <link rel="preconnect"
-              href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
-              rel="stylesheet">
-        <!--========== BOX ICONS ==========-->
-        <link rel="stylesheet"
-              href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-        <!--========== CSS ==========-->
-        <link rel="stylesheet"
-              href="assets/css/styles.css">
-        <!--========== Favicons==========-->
-        <link rel="apple-touch-icon"
-              sizes="180x180"
-              href="./assets/img/favicon_io/apple-touch-icon.png">
-        <link rel="icon"
-              type="image/png"
-              sizes="32x32"
-              href="./assets/img/favicon_io/favicon-32x32.png">
-        <link rel="icon"
-              type="image/png"
-              sizes="16x16"
-              href="./assets/img/favicon_io/favicon-16x16.png">
-        <link rel="manifest"
-              href="./assets/img/favicon_io/site.webmanifest">
-    </head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <!--==========  Primary Meta Tags==========-->
+    <title>Hamilton Mercado Cuellar || Developer || Javascript* HTML* CSS* Angular* Java* .NET*
+      SQL*</title>
+    <meta name="title"
+          content="Hamilton Mercado Cuellar || Developer">
+    <meta name="description"
+          content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
+    <meta name="keywords"
+          content="FullStack, Developer, Javascript, HTML, CSS, Angular, Java, .NET" />
+    <meta name="author"
+          content="Hamilton Mercado Cuellar" />
+    <meta name="robots"
+          content="index" />
+    <meta http-equiv="expires"
+          content="43200" />
+    <link rev="made"
+          href="mailto:hamiltonmercadocuellar@gmail.com">
+    <!-- Mobile -->
+    <meta name="apple-mobile-web-app-status-bar-style"
+          content="black">
+    <meta name="theme-color"
+          content="#F0EFEF">
+    <meta name="apple-mobile-web-app-capable"
+          content="yes">
+    <meta name="mobile-web-app-capable"
+          content="yes">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type"
+          content="website">
+    <meta property="og:url"
+          content="https://hamelshmc.github.io/">
+    <meta property="og:title"
+          content="Hamilton Mercado Cuellar || Developer">
+    <meta property="og:description"
+          content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
+    <meta property="og:image"
+          content="/metadatos.png">
+    <!--========== Twitter ==========-->
+    <meta property="twitter:card"
+          content="summary_large_image">
+    <meta property="twitter:url"
+          content="https://hamelshmc.github.io/">
+    <meta property="twitter:title"
+          content="Hamilton Mercado Cuellar || Developer">
+    <meta property="twitter:description"
+          content="👋🏾  Hola, soy Hamilton 😊 , desarrollador. Aprendiendo cada día algo nuevo e intentado dar lo mejor de mí. 💻">
+    <meta property="twitter:image"
+          content="/metadatos.png">
+    <!--========== BOX ICONS ==========-->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!--========== Favicons==========-->
+    <link rel="apple-touch-icon"
+          sizes="180x180"
+          href="./favicon_io/apple-touch-icon.png">
+    <link rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="./favicon_io/favicon-32x32.png">
+    <link rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="./favicon_io/favicon-16x16.png">
+    <link rel="manifest"
+          href="./favicon_io/site.webmanifest">
+  <script type="module" crossorigin src="/assets/index.a317b89b.js"></script>
+  <link rel="modulepreload" href="/assets/vendor.5448d501.js">
+  <link rel="stylesheet" href="/assets/index.0605aa35.css">
+</head>
 
-    <body>
-        <!--========== HEADER ==========-->
-        <header class="l-header"
-                id="header">
-            <nav class="nav bd-container">
-                <a href="#"
-                   class="nav__logo">Hamilton
-                </a>
-                <div class="nav__menu"
-                     id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item">
-                            <a href="#home"
-                               class="nav__link">
-                                <i class='bx bx-home nav__icon '></i>INICIO
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#profile"
-                               class="nav__link">
-                                <i class='bx bx-user nav__icon '></i>PERFIL
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#education"
-                               class="nav__link">
-                                <i class='bx bx-book nav__icon'></i>EDUCACIÓN
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#skills"
-                               class="nav__link">
-                                <i class='bx bx-receipt nav__icon'></i>SKILLS
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#experience"
-                               class="nav__link">
-                                <i class='bx bx-briefcase-alt nav__icon'></i>EXPERIENCIA
-                            </a>
-                        </li>
-                        <li class="nav__item">
-                            <a href="#certificates"
-                               class="nav__link">
-                                <i class='bx bx-award nav__icon'></i>CURSOS
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="nav__toggle"
-                     id="nav-toggle">
-                    <i class='bx bx-grid-alt'></i>
-                </div>
-            </nav>
-        </header>
-        <main class="l-main bd-container">
-            <!-- All elements within this div, is generated in PDF -->
-            <div class="resume"
-                 id="area-cv">
-                <div class="resume__left">
-                    <!--========== HOME ==========-->
-                    <section class="home"
-                             id="home">
-                        <div class="home__container section bd-grid">
-                            <div class="home__data">
-                                <img src="assets/img/perfil.jpg"
-                                     alt="perfil"
-                                     class="home__img">
-                                <h1 class="home__title">HAMILTON MERCADO CUELLAR </h1>
-                                <h3 class="home__profession">Developer</h3>
-                                <!-- Button to download the pdf. Available for mobile. -->
-                                <div>
-                                    <a download=""
-                                       href="assets/pdf/hamiltonmercadocuellarCV.pdf"
-                                       class="home__button-movil">Descargar</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="home__address bd-grid">
-                            <span class="home__information">
-                                <i class='bx bx-map home__icon'></i>A Coruña - España
-                            </span>
-                            <span class="home__information">
-                                <a href="mailto:hamiltonmercadocuellar@gmail.com"
-                                   class="home__link">
-                                    <i class='bx bx-envelope home__icon'></i>
-                                    hamiltonmercadocuellar@gmail.com
-                                </a>
-                            </span>
-                            <span class="home__information">
-                                <a href="tel:+34648759635"
-                                   class="home__link">
-                                    <i class='bx bx-phone home__icon'></i> 648-759-635
-                                </a>
-                            </span>
-                        </div>
-                        <!-- Theme change button -->
-                        <i class='bx bx-moon change-theme'
-                           tittle="Theme"
-                           id="theme-button"></i>
-                        <!-- Button to generate and download the pdf. Available for desktop. -->
-                        <i class='bx bx-download generate-pdf'
-                           tittle="Generate PDF"
-                           id="resume-button"></i>
-                    </section>
-                    <!--========== SOCIAL ==========-->
-                    <section class="social section">
-                        <h2 class="section-title">SOCIAL</h2>
-                        <div class="social__container bd-grid">
-                            <a href="https://www.linkedin.com/in/hamelhmc/"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               class="social__link">
-                                <i class='bx bxl-linkedin-square social__icon'></i>@hamelhmc
-                            </a>
-                            <a href="https://github.com/Hamelshmc"
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               class="social__link">
-                                <i class='bx bxl-github social__icon'></i>@hamelshmc
-                            </a>
-                        </div>
-                    </section>
-                    <!--========== PROFILE ==========-->
-                    <section class="profile section"
-                             id="profile">
-                        <h2 class="section-title">PERFIL</h2>
-                        <p class="profile__description">
-                            Hola, soy Hamilton, desarrollador. Aprendiendo cada día algo nuevo
-                            e intentado dar lo mejor de mí.
-                        </p>
-                    </section>
-                    <!--========== EDUCATION ==========-->
-                    <section class="education section"
-                             id="education">
-                        <h2 class="section-title">EDUCACIÓN</h2>
-                        <div class="education__container bg-grid">
-                            <div class="education__content">
-                                <div class="education__time">
-                                    <span class="education__rounder">
-                                    </span>
-                                    <span class="education__line"></span>
-                                </div>
-                                <div class="education__data bd-grid">
-                                    <h3 class="education__title">FP DUAL Desarrollo de
-                                        Aplicaciones WEB </h3>
-                                    <span class="education__studies">IES Fernando Wirtz
-                                        Suárez
-                                    </span>
-                                    <span class="education__year">2018 - 2020</span>
-                                </div>
-                            </div>
-                            <div class="education__content">
-                                <div class="education__time">
-                                    <span class="education__rounder">
-                                    </span>
-                                    <!-- <span class="education__line"></span> -->
-                                </div>
-                                <div class="education__data bd-grid">
-                                    <h3 class="education__title">FP Sistemas
-                                        Microinformáticos y Redes </h3>
-                                    <span class="education__studies">IES Fernando Wirtz
-                                        Suárez</span>
-                                    <span class="education__year">2016 - 2018</span>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!--========== SKILLS  ==========-->
-                    <section class="skills section"
-                             id="skills">
-                        <h2 class="section-title">Soft skills</h2>
-                        <div class="skills_content bd-grid">
-                            <ul class="skills_data">
-                                <li class="skills__name">
-                                    Desarrollo centrado en
-                                    implementar la experiencia de usuario UX/ UI
-                                </li>
-                                <li class="skills__name">
-                                    </span> Desarrollo siguiendo
-                                    metodologías Ágiles
-                                </li>
-                            </ul>
-                            <ul class="skills_data">
-                                <li class="skills__name">
-                                    <span class="skills__circle"> </span> Aprendizaje continuo
-                                </li>
-                                <li class="skills__name">
-                                    <span class="skills__circle"> </span> Clean Code
-                                </li>
-                                <li class="skills__name">
-                                    <span class="skills__circle"> </span>Compromiso
-                                </li>
-                                <li class="skills__name">
-                                    <span class="skills__circle"> </span>Trabajo en equipo
-                                </li>
-                                <li class="skills__name">
-                                    <span class="skills__circle"> </span> Pair Programming
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                </div>
-                <div class="resume__right">
-                    <!--========== EXPERIENCE ==========-->
-                    <section class="experience section"
-                             id="experience">
-                        <h2 class="section-title">EXPERIENCIA</h2>
-                        <div class="experience__container bd-grid">
-                            <div class="experience__content">
-                                <div class="experience__time">
-                                    <span class="experience__rounder">
-                                    </span>
-                                    <span class="experience__line"></span>
-                                </div>
-                                <div class="experience__data bd-grid">
-                                    <h3 class="experience__title">Desarrollador/a de aplicaciones
-                                        web Junior</h3>
-                                    <span class="experience__company">03-2020 a
-                                        09-2020 | Indra Sistemas S.A </span>
-                                    <span class="experience__description">
-                                        Angular - REST APIs con .NET / C# - Metodología ágil SCRUM -
-                                        GitLab
-                                        - Visual Studio Code
-                                        - Visual code community
-                                        - SQL Management Studio
-                                        - Chrome DevTools
-                                        - Microsoft Teams
-                                        - SASS
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="experience__content">
-                                <div class="experience__time">
-                                    <span class="experience__rounder">
-                                    </span>
-                                    <!-- <span class="experience__line"></span> -->
-                                </div>
-                                <div class="experience__data bd-grid">
-                                    <h3 class="experience__title">Desarrollador/a de aplicaciones
-                                        web Junior</h3>
-                                    <span class="experience__company">03-2019 a
-                                        09-2019 | Indra Sistemas S.A </span>
-                                    <!-- <span class="experience__description"></span> -->
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!--========== CERTIFICATES ==========-->
-                    <section class="certificate section"
-                             id="certificates">
-                        <h2 class="section-title">CURSOS</h2>
-                        <div class="certificate__container bd-grid">
-                            <div class="certificate__content">
-                                <h3 class="certificate__title">BOOTCAMP HACKABOSS</h3>
-                                <p class="certificate__description">
-                                    Curso Intensivo de Programación Full Stack.
-                                    Conocimientos adquiridos:
-                                    Javascript (ES6)
-                                    - SQL
-                                    - HTML
-                                    - CSS
-                                    - GIT
-                                    - Node.js
-                                    - Pair programming
-                                    - Metodologias Ágiles
-                                    - GIT introducción y avanzado
-                                    - Marca Personal
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-                    <!--========== LANGUAGES ==========-->
-                    <section class="languages section">
-                        <h2 class="section-title">Hard skills</h2>
-                        <div class="languages_content bd-grid">
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt="javascript"
-                                         src="assets/img/javascript.svg"
-                                         class="languages__circle" />JavaScript
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="html"
-                                         src="assets/img/html-5.svg"
-                                         class="languages__circle" /> HTML
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="css"
-                                         src="assets/img/css-3.svg"
-                                         class="languages__circle" /> CSS
-                                </li>
-                            </ul>
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt="angular"
-                                         src="assets/img/angular-icon.svg"
-                                         class="languages__circle" />Angular
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="reactjs"
-                                         src="assets/img/react.svg"
-                                         class="languages__circle" />ReactJS
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="springboot"
-                                         src="assets/img/spring-icon.svg"
-                                         class="languages__circle" />Spring Boot
-                                </li>
-                            </ul>
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt=".NET"
-                                         src="assets/img/dotnet.svg"
-                                         class="languages__circle" /> .NET | C#
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="nodejs"
-                                         src="assets/img/nodejs-icon.svg"
-                                         class="languages__circle" /> NodeJS
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="Java"
-                                         src="assets/img/java.svg"
-                                         class="languages__circle" /> Java
-                                </li>
-                            </ul>
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt="Angular"
-                                         src="assets/img/mysql.svg"
-                                         class="languages__circle" /> SQL
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="Angular"
-                                         src="assets/img/mongodb.svg"
-                                         class="languages__circle" /> Mongo DB
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    <!--========== TOOLS ==========-->
-                    <section class="languages section">
-                        <h2 class="section-title">Tools</h2>
-                        <div class="languages_content bd-grid">
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt="VisualStudioCode"
-                                         src="assets/img/visual-studio-code.svg"
-                                         class="languages__circle" />Visual Studio Code
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="Visual Studio"
-                                         src="assets/img/visual-studio.svg"
-                                         class="languages__circle" /> Visual Studio
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="git"
-                                         src="assets/img/git-icon.svg"
-                                         class="languages__circle" /> GIT
-                                </li>
-                            </ul>
-                            <ul class="languages_data">
-                                <li class="languages__name">
-                                    <img alt="GITHUB"
-                                         src="assets/img/github-icon.svg"
-                                         class="languages__circle" />GITHUB
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="GITLAB"
-                                         src="assets/img/gitlab.svg"
-                                         class="languages__circle" />GITLAB
-                                </li>
-                                <li class="languages__name">
-                                    <img alt="TERMINAL"
-                                         src="assets/img/terminal.svg"
-                                         class="languages__circle" />TERMINAL
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    <!--========== INTERESTS ==========-->
-                    <section class="interests section">
-                        <h2 class="section-title">Hobbies</h2>
-                        <div class="interests__container bd-grid">
-                            <div class="interests__content">
-                                <i class='bx bx-headphone interests__icon'></i>
-                                <span class="interests__name">Musica</span>
-                            </div>
-                            <div class="interests__content">
-                                <i class='bx bxs-plane interests__icon'></i>
-                                <span class="interests__name">Viajar</span>
-                            </div>
-                            <div class="interests__content">
-                                <i class='bx bx-dumbbell interests__icon'></i>
-                                <span class="interests__name">GYM</span>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </main>
-        <!--========== SCROLL TOP ==========-->
-        <a href="#"
-           class="scrolltop"
-           id="scroll-top">
-            <i class='bx bx-up-arrow-alt interests__icon'></i>
-        </a>
-        <!--========== HTML2PDF ==========-->
-        <script src="assets/js/html2pdf.bundle.min.js"></script>
-        <!--========== MAIN JS ==========-->
-        <script src="assets/js/main.js"></script>
-    </body>
+  <body>
+    <div id="app"></div>
+    
+  </body>
 
 </html>
