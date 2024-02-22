@@ -58,7 +58,6 @@ function convertirRedesSociales(publicProfiles: RelevantLink[]): SocialMedia {
     linkedin: ""
   };
   publicProfiles.forEach(profile => {
-    console.log('🐛 ➜ convertirRedesSociales ➜ profile➜', profile);
     switch (profile.type) {
       case "facebook":
         socialMedia.facebook = profile.URL;

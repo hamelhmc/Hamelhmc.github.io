@@ -1,11 +1,11 @@
 ---
-import { info } from "@data";
+import { info } from "@data/info";
 
 import ProjectsWrapper from "@components/general/ProjectsWrapper.astro";
 import MetaHead from "@components/general/MetaHead.astro";
 import Layout from "@layouts/Layout.astro";
 
-const Projects = info.projects.map((project) => project);
+const projects = info.projects.map((project) => project);
 ---
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ const Projects = info.projects.map((project) => project);
   <body>
     <Layout>
       <h1 style="line-height: 1.2;">Projects</h1>
-      <ProjectsWrapper projects={Projects} />
+      <ProjectsWrapper projects={projects} />
     </Layout>
   </body>
 </html>
