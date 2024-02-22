@@ -1,4 +1,4 @@
-/* gradient heading */
+/* Gradiente para el encabezado */
 .main-heading {
   display: inline-block;
   margin: 2rem 0;
@@ -6,16 +6,16 @@
   font-weight: 600;
   background: linear-gradient(
     89.81deg,
-    #9845e8 -1.72%,
-    #33d2ff 54.05%,
-    #dd5789 99.78%
+    #fbbf24 -1.72%, /* Amarillo */
+    #9845e8 54.05%, /* Morado */
+    #33d2ff 99.78% /* Azul */
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
   background-size: 150% 150%;
-  animation: gradient 15s ease infinite;
+  animation: gradient 15s ease infinite, color-shift 10s linear infinite;
   line-height: 1.2;
 }
 
@@ -30,5 +30,14 @@
 
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes color-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
   }
 }

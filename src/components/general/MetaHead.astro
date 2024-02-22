@@ -1,6 +1,6 @@
 ---
 import { IMetaHead } from "@types";
-import { info } from "@data";
+import { info } from "@data/info";
 
 const { title, description, ogImageUrl } = Astro.props as IMetaHead;
 ---
@@ -27,7 +27,7 @@ const { title, description, ogImageUrl } = Astro.props as IMetaHead;
     <link rel="canonical" href={`${info.baseUrl}${Astro.url.pathname}`} />
   )
 }
-{title && <title>{`${title} - ${info.name}`}</title>}
+{title && <title>{`${info.name}`}</title>}
 {title && <meta name="title" content={`${title} - ${info.name}`} />}
 {description && <meta name="description" content={description} />}
 

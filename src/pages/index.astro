@@ -1,5 +1,5 @@
 ---
-import { info } from "@data";
+import { info } from "@data/info";
 
 import Layout from "@layouts/Layout.astro";
 import Hero from "@components/home/Hero.astro";
@@ -28,12 +28,12 @@ const featureProjects = info.projects.reduce((accumulator, project) => {
   <body>
     <Layout>
       <Hero name={info.name} about={info.about} />
-      <Experience title={"EXPERIENCE"} details={info.experience} />
-      <Experience title={"EDUCATION"} details={info.education} />
-      <section>
+      <Experience title={"EXPERIENCIA"} details={info.experience} />
+      <Experience title={"EDUCACION"} details={info.education} />
+      <!-- <section>
         <h2 class="w-[15rem] dark:text-light mt-16">FEATURE PROJECTS</h2>
         <ProjectsWrapper projects={featureProjects} />
-      </section>
+      </section> -->
     </Layout>
   </body>
 </html>

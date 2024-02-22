@@ -1,21 +1,33 @@
 /* ========== import font source ========== */
-@import "fonts.css";
+@import 'fonts.css';
 
 /* ========== import custom styles ========== */
-@import "custom-styles.css";
+@import 'custom-styles.css';
 
+/* ========== tailwind base styles ========== */
 @tailwind base;
+
+/* ========== tailwind components styles ========== */
 @tailwind components;
+
+/* ========== tailwind utilities styles ========== */
 @tailwind utilities;
 
 /* ========== tailwind custom styles ========== */
 @layer components {
+  /* Estilos para el body */
   body {
-    @apply bg-light dark:bg-dark;
+    @apply bg-light dark:bg-dark font-inter text-dark-gray;
+    line-height: 1.6;
   }
+
+  /* Estilos para el contenedor principal */
   .container {
-    @apply max-w-[1112px] mx-auto px-4;
+    @apply max-w-screen-lg mx-auto px-4;
+    white-space: pre-line;
   }
+
+  /* Estilos para los encabezados */
   h1,
   h2,
   h3,
@@ -24,18 +36,27 @@
   h6 {
     @apply font-outfit;
   }
+
+  /* Estilos para el encabezado principal */
   h1 {
     @apply text-6xl sm:text-8xl main-heading;
   }
+
+  /* Estilos para el encabezado secundario */
   h2 {
-    @apply text-xl font-semibold;
+    @apply text-2xl sm:text-3xl font-semibold leading-normal; /* Añadido leading-normal para un mejor espaciado entre líneas */
   }
+
+  /* Estilos para los párrafos, elementos de lista y enlaces */
   p,
   li,
   a {
-    @apply font-inter text-dark-gray;
+    @apply font-inter text-dark-gray; /* Añadido text-dark-gray para mejorar el contraste */
   }
+
+  /* Estilos para los íconos del pie de página */
   .footer-icons {
-    @apply dark:text-light flex items-center border border-dark dark:border-light p-4 rounded-lg justify-center;
+    @apply dark:text-light flex items-center justify-center p-4 rounded-lg;
+    @apply border dark:border-light border-solid border-dark;
   }
 }
