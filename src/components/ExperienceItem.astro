@@ -12,8 +12,7 @@ interface Props {
 const { title, company, description, link, date } = Astro.props;
 ---
 
-<div
-  class="relative mx-12 pb-6 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]">
+<div class="relative mx-4 md:mx-12 pb-6 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]">
   <div class="relative pb-4 md:col-span-2">
     <div class="sticky top-0">
       <span class="gradient-heading -left-[42px] absolute rounded-full text-5xl">&bull;</span>
@@ -24,7 +23,7 @@ const { title, company, description, link, date } = Astro.props;
     </div>
   </div>
   <div class="whitespace-pre-line relative flex flex-col gap-2 pb-4 text-sm text-gray-600 dark:text-gray-300 md:text-base md:col-span-3">
-    <p class="leading-normal">{description}</p>
+    <p class="leading-normal">{description.replaceAll('-', '🌟')}</p>
     {
       link && (
         <LinkInline href={link} class="flex items-center text-yellow-400 hover:underline">
@@ -46,6 +45,7 @@ const { title, company, description, link, date } = Astro.props;
     }
   </div>
 </div>
+
 
 <style>
   .gradient-heading {

@@ -33,7 +33,7 @@ publicProfiles.forEach((profile) => {
 
 socialMediaLinks.email = contactMails[0];
 
-const aboutDescriptionParagraph = aboutMe.profile.description.split('\n\n')[0];
+const aboutDescriptionParagraph = aboutMe.profile.description.split('\n\n')[0] + '\n\n' + aboutMe.profile.description.split('\n\n')[1];
 ---
 
 <main>
@@ -49,6 +49,7 @@ const aboutDescriptionParagraph = aboutMe.profile.description.split('\n\n')[0];
   </section>
   <header class="text-center md:text-left">
     <h1 class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white">Hola, soy {aboutMe.profile.name}</h1>
+    <h2 class="text-sm font-semibold mt-2 text-gray-800 dark:text-gray-300">{aboutMe.profile.title.split('|')[0].trim()}</h2>
     <p class="whitespace-pre-line mt-6 text-base md:text-lg lg:text-xl text-gray-800 dark:text-gray-300">
       {aboutDescriptionParagraph}
     </p>
