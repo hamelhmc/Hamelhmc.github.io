@@ -1,0 +1,39 @@
+---
+import type { Experience } from '@/data/model/manfred.interface';
+import ExperienceItem from './ExperienceItem.astro';
+
+interface Props {
+  experience: Experience;
+}
+
+const { experience } = Astro.props as Props;
+
+const EXPERIENCIE = experience.jobs.map((job) => {
+  const options: Intl.DateTimeFormatOptions = { month: 'short', year: 'numeric' };
+  const locale: string = 'es-ES';
+
+  const startDate = new Date(job.roles[0].startDate).toLocaleDateString(locale, options);
+  const endDate = job.roles[0].finishDate ? new Date(job.roles[0].finishDate).toLocaleDateString(locale, options) : 'Presente';
+
+  return {
+    date: `${startDate} - ${endDate}`,
+    title: job.roles[0].name,
+    company: job.organization.name,
+    description: job.roles
+      .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n📌 Tecnologías')[0]))
+      .flat()
+      .join(),
+    link: '',
+  };
+});
+---
+
+<ol class="relative mt-16">
+  {
+    EXPERIENCIE.map((experiencie) => (
+      <li class="">
+        <ExperienceItem {...experiencie} />
+      </li>
+    ))
+  }
+</ol>

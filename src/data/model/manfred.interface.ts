@@ -1,4 +1,4 @@
-export interface Portafolio {
+export type Portafolio = {
   $schema: string;
   settings: Settings;
   aboutMe: AboutMe;
@@ -8,19 +8,19 @@ export interface Portafolio {
   manfredSpecificData: ManfredSpecificData;
 }
 
-export interface AboutMe {
+export type AboutMe = {
   profile: Profile;
   interestingFacts: InterestingFact[];
   recommendations: Recommendation[];
   relevantLinks: RelevantLink[];
 }
 
-export interface InterestingFact {
+export type InterestingFact = {
   topic: string;
   fact: string;
 }
 
-export interface Profile {
+export type Profile = {
   name: string;
   surnames: string;
   title: string;
@@ -29,53 +29,53 @@ export interface Profile {
   location: Location;
 }
 
-export interface Avatar {
+export type Avatar = {
   link: string;
   alt: string;
 }
 
-export interface Location {
+export type Location = {
   notes: string;
   country: string;
   region: string;
   municipality: string;
 }
 
-export interface Recommendation {
+export type Recommendation = {
   title: string;
   type: string;
   URL: string;
   authors: Author[];
 }
 
-export interface Author {
+export type Author = {
   name: string;
   surnames: string;
   title: string;
 }
 
-export interface RelevantLink {
+export type RelevantLink = {
   type: string;
   URL: string;
 }
 
-export interface CareerPreferences {
+export type CareerPreferences = {
   contact: Contact;
   preferences: Preferences;
   status: string;
 }
 
-export interface Contact {
+export type Contact = {
   publicProfiles: RelevantLink[];
   contactMails: string[];
 }
 
-export interface Preferences {
+export type Preferences = {
   preferredCompetences: MainStackTech[];
   preferredRoles: string[];
 }
 
-export interface MainStackTech {
+export type MainStackTech = {
   name: string;
   type: Type;
 }
@@ -85,22 +85,22 @@ export enum Type {
   Technology = "technology",
 }
 
-export interface Experience {
+export type Experience = {
   jobs: Job[];
   projects: Project[];
 }
 
-export interface Job {
+export type Job = {
   organization: Organization;
   roles: Role[];
 }
 
-export interface Organization {
+export type Organization = {
   name: string;
   image?: Avatar;
 }
 
-export interface Role {
+export type Role = {
   name: string;
   startDate: Date;
   challenges?: Challenge[];
@@ -108,41 +108,41 @@ export interface Role {
   competences?: MainStackTech[];
 }
 
-export interface Challenge {
+export type Challenge = {
   description: string;
 }
 
-export interface Project {
+export type Project = {
   details: Details;
   type: string;
   roles: Role[];
 }
 
-export interface Details {
+export type Details = {
   name: string;
   description?: string;
   URL?: string;
   image?: Avatar;
 }
 
-export interface Knowledge {
+export type Knowledge = {
   languages: Language[];
   hardSkills: Skill[];
   studies: Study[];
   softSkills: Skill[];
 }
 
-export interface Skill {
+export type Skill = {
   skill: MainStackTech;
 }
 
-export interface Language {
+export type Language = {
   name: string;
   fullName: string;
   level: string;
 }
 
-export interface Study {
+export type Study = {
   studyType: string;
   degreeAchieved: boolean;
   name: string;
@@ -152,7 +152,7 @@ export interface Study {
   linkedCompetences: MainStackTech[];
 }
 
-export interface ManfredSpecificData {
+export type ManfredSpecificData = {
   mainStackTechs: MainStackTech[];
   desiredJobDescription: string;
   goodPractices: string;
@@ -160,11 +160,11 @@ export interface ManfredSpecificData {
   bookmarks: Bookmark[];
 }
 
-export interface Bookmark {
+export type Bookmark = {
   name: string;
 }
 
-export interface Settings {
+export type Settings = {
   language: string;
   MACVersion: string;
 }

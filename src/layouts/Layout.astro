@@ -1,11 +1,141 @@
 ---
-import Footer from "@components/general/Footer.astro";
-import Navbar from "@components/general/Navbar.astro";
-import "../styles/style.css";
+import '@fontsource-variable/onest';
+import 'sanitize.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ViewTransitions } from 'astro:transitions';
+import type { AboutMe, CareerPreferences } from '@/data/model/manfred.interface';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImageUrl: string;
+  aboutMe: AboutMe;
+  careerPreferences: CareerPreferences;
+}
+
+const { description, title, ogImageUrl, aboutMe, careerPreferences } = Astro.props;
 ---
 
-<Navbar />
-<main class="container">
-  <slot />
-</main>
-<Footer />
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    {title && <link rel="canonical" href={`${Astro.url.href}${Astro.url.pathname}`} />}
+    {title && <title>{`${title}`}</title>}
+    {title && <meta name="title" content={`${title}`} />}
+    {description && <meta name="description" content={description} />}
+
+    <!-- Open Graph / Facebook -->
+    {title && <meta property="og:type" content="website" />}
+    {title && <meta property="og:url" content={`${Astro.url.href}${Astro.url.pathname}`} />}
+    {title && <meta property="og:title" content={`${title}`} />}
+    {description && <meta property="og:description" content={description} />}
+    {ogImageUrl && <meta property="og:image" content={`${Astro.url.href}${ogImageUrl}`} />}
+
+    <!-- Twitter -->
+    {title && <meta property="twitter:card" content="summary_large_image" />}
+    {title && <meta property="twitter:url" content={`${Astro.url.href}${Astro.url.pathname}`} />}
+    {title && <meta property="twitter:title" content={`${title}`} />}
+    {description && <meta property="twitter:description" content={description} />}
+    {ogImageUrl && <meta property="twitter:image" content={`${Astro.url.href}${ogImageUrl}`} />}
+
+    <ViewTransitions />
+  </head>
+
+  <body class="relative text-black dark:text-white">
+    <div
+      class="absolute top-0 bottom-0 z-[-2] min-h-screen w-full bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 dark:from-gray-700 dark:via-gray-800 dark:to-gray-900">
+    </div>
+
+    <Header />
+    <slot />
+    <Footer aboutMe={aboutMe} careerPreferences={careerPreferences} />
+    <style is:global>
+      :root {
+        color-scheme: light dark;
+      }
+
+      html {
+        font-family: 'Onest Variable', system-ui, sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        color: rgba(17, 17, 17, 0.9);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overscroll-behavior: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      #header-nav {
+        animation: blur linear both 0.5s;
+        animation-timeline: scroll();
+        animation-range: 0 500px;
+      }
+
+      @keyframes blur {
+        to {
+          backdrop-filter: blur(20px);
+          border-width: 1px;
+          border-color: rgba(0, 0, 0);
+          padding: 0.25rem 0.75rem;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          background-color: #f4f4f4; /* Color de fondo más claro */
+          border-radius: 9999px;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        @keyframes blur {
+          from {
+            border: 0px;
+          }
+          to {
+            box-shadow:
+              0px 5px 50px -5px rgba(0, 0, 0, 0.1),
+              0px 0px 0 1px rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border-width: 1px;
+            border-color: rgba(0, 0, 0);
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #333; /* Color de fondo más oscuro */
+            border-radius: 9999px;
+          }
+        }
+      }
+    </style>
+  </body>
+</html>

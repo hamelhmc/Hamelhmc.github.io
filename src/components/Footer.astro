@@ -1,0 +1,56 @@
+---
+import type { Portafolio } from '@/data/model/manfred.interface';
+import SocialPill from './SocialPill.astro';
+import LinkedInIcon from '@/components/icons/LinkedIn.astro';
+import MailIcon from '@/components/icons/Mail.astro';
+import GitHubIcon from '@/components/icons/GitHub.astro';
+import XIcon from '@/components/icons/X.astro';
+const currentYear = new Date().getFullYear();
+
+const { aboutMe, careerPreferences } = Astro.props as Portafolio;
+
+const publicProfiles = careerPreferences.contact.publicProfiles;
+const contactMails = careerPreferences.contact.contactMails;
+
+const socialMediaLinks = {
+  linkedin: '',
+  github: '',
+  twitter: '',
+  email: '',
+};
+
+publicProfiles.forEach((profile) => {
+  if (profile.type === 'linkedin') {
+    socialMediaLinks.linkedin = profile.URL;
+  } else if (profile.type === 'github') {
+    socialMediaLinks.github = profile.URL;
+  } else if (profile.type === 'twitter') {
+    socialMediaLinks.twitter = profile.URL;
+  }
+});
+
+socialMediaLinks.email = contactMails[0];
+---
+
+<footer class="rounded-lg backdrop-blur-lg m-4 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center">
+  <div class="rounded-lg w-full max-w-screen-xl mx-auto md:flex md:items-center md:justify-between py-4 px-4 md:px-8">
+    <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90 block md:inline-block md:text-left">
+      © {currentYear}
+      <a href={Astro.url.href} class="hover:underline">{aboutMe.profile.name}</a>. todos los derechos reservados
+    </span>
+    <ul class="flex flex-wrap justify-center mt-0 gap-2 text-sm font-medium dark:text-white/90 sm:mt-3 md:mt-3 md:justify-end">
+      <SocialPill href={`mailto:${socialMediaLinks.email}`}>
+        <MailIcon class="size-5" />
+      </SocialPill>
+      <SocialPill href={socialMediaLinks.linkedin}>
+        <LinkedInIcon class="size-5" />
+      </SocialPill>
+      <SocialPill href={socialMediaLinks.github}>
+        <GitHubIcon class="size-5" />
+      </SocialPill>
+      <SocialPill href={socialMediaLinks.twitter}>
+        <XIcon class="size-5" />
+      </SocialPill>
+    </ul>
+  </div>
+</footer>

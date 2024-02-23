@@ -1,0 +1,91 @@
+---
+import Badge from '@/components/Badge.astro';
+import LinkedInIcon from '@/components/icons/LinkedIn.astro';
+import MailIcon from '@/components/icons/Mail.astro';
+import GitHubIcon from '@/components/icons/GitHub.astro';
+import XIcon from '@/components/icons/X.astro';
+import SocialPill from '@/components/SocialPill.astro';
+import type { Portafolio } from '@/data/model/manfred.interface';
+import { Image } from 'astro:assets';
+import myImage from '@/assets/hmc.png'; // Image is 1600x900
+
+const { aboutMe, careerPreferences } = Astro.props as Portafolio;
+
+const publicProfiles = careerPreferences.contact.publicProfiles;
+const contactMails = careerPreferences.contact.contactMails;
+
+const socialMediaLinks = {
+  linkedin: '',
+  github: '',
+  twitter: '',
+  email: '',
+};
+
+publicProfiles.forEach((profile) => {
+  if (profile.type === 'linkedin') {
+    socialMediaLinks.linkedin = profile.URL;
+  } else if (profile.type === 'github') {
+    socialMediaLinks.github = profile.URL;
+  } else if (profile.type === 'twitter') {
+    socialMediaLinks.twitter = profile.URL;
+  }
+});
+
+socialMediaLinks.email = contactMails[0];
+
+const aboutDescriptionParagraph = aboutMe.profile.description.split('\n\n')[0];
+---
+
+<main class="max-w-xl">
+  <section class="flex flex-col md:flex-row items-center md:items-start md:gap-4 mb-4">
+    <Image class="rounded-full shadow-lg w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0" src={myImage} alt={aboutMe.profile.name} />
+    <a
+      href={`./assets/HAMILTON_MERCADO_CUELLAR_CV.pdf`}
+      target="_blank"
+      rel="noopener"
+      class="btn flex items-center justify-center transition-transform md:hover:scale-105">
+      <Badge>Descarga mi CV</Badge>
+    </a>
+  </section>
+  <header class="text-center md:text-left">
+    <h1 class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white">Hola, soy {aboutMe.profile.name}</h1>
+    <p class="whitespace-pre-line mt-6 text-base md:text-lg lg:text-xl text-gray-800 dark:text-gray-300">
+      {aboutDescriptionParagraph}
+    </p>
+  </header>
+  <nav class="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
+    <SocialPill href={`mailto:${socialMediaLinks.email}`}>
+      <MailIcon class="w-6 h-6 md:w-8 md:h-8" />
+      Contáctame
+    </SocialPill>
+    <SocialPill href={socialMediaLinks.linkedin}>
+      <LinkedInIcon class="w-6 h-6 md:w-8 md:h-8" />
+      LinkedIn
+    </SocialPill>
+    <SocialPill href={socialMediaLinks.github}>
+      <GitHubIcon class="w-6 h-6 md:w-8 md:h-8" />
+      GitHub
+    </SocialPill>
+    <SocialPill href={socialMediaLinks.twitter}>
+      <XIcon class="w-6 h-6 md:w-8 md:h-8" />
+    </SocialPill>
+  </nav>
+</main>
+
+<style>
+  @keyframes gradient-animation {
+    0% {
+      background: linear-gradient(to right, #ffa500, #ffd700);
+    }
+    50% {
+      background: linear-gradient(to right, #ffd700, #ffa500);
+    }
+    100% {
+      background: linear-gradient(to right, #ffa500, #ffd700);
+    }
+  }
+
+  .animate-gradient {
+    animation: gradient-animation 3s ease-in-out infinite;
+  }
+</style>

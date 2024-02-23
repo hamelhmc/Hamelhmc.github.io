@@ -1,0 +1,100 @@
+---
+import SunIcon from './icons/Sun.astro';
+import MoonIcon from './icons/Moon.astro';
+import SystemIcon from './icons/System.astro';
+
+const THEMES = ['Light', 'Dark', 'System'];
+---
+
+<div class="relative block">
+  <button
+    id="theme-toggle-btn"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="themes-menu"
+    class="appearance-none border-none flex items-center focus:outline-none hover:scale-125 transition px-4 py-2 md:px-4 md:py-2">
+    <span class="sr-only">Elige el tema</span>
+    <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
+    <MoonIcon id="dark" class="theme-toggle-icon size-5 transition-all" />
+    <SystemIcon id="system" class="theme-toggle-icon size-5 transition-all" />
+  </button>
+  <div
+    id="themes-menu"
+    role="menu"
+    aria-labelledby="theme-toggle-btn"
+    tabindex="-1"
+    class="absolute opacity-0 scale-80 top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/70 dark:bg-gray-900/70 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md">
+    <ul>
+      {
+        THEMES.map((theme) => (
+          <li
+            role="menuitem"
+            class="themes-menu-option px-4 py-2 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm">
+            {theme}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  #themes-menu.open {
+    animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes scale-up-center {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script is:inline>
+  const themesMenu = document.getElementById('themes-menu');
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
+
+  const getThemePreference = () => {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('theme') ?? 'system';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const updateIcon = (themePreference) => {
+    document.querySelectorAll('.theme-toggle-icon').forEach((element) => {
+      element.style.display = element.id === themePreference ? 'block' : 'none';
+    });
+  };
+
+  const updateTheme = () => {
+    const themePreference = getThemePreference();
+    const isDark =
+      themePreference === 'dark' || (themePreference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    updateIcon(themePreference);
+    document.documentElement.classList.toggle('dark', isDark);
+  };
+
+  updateTheme();
+
+  document.addEventListener('click', () => themesMenu.classList.remove('open'));
+
+  themeToggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    themesMenu.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.themes-menu-option').forEach((element) => {
+    element.addEventListener('click', (e) => {
+      localStorage.setItem('theme', e.target.innerText.toLowerCase().trim());
+      updateTheme();
+      themesMenu.classList.remove('open');
+    });
+  });
+</script>

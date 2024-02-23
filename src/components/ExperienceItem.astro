@@ -1,0 +1,84 @@
+---
+import LinkInline from './LinkInline.astro';
+
+interface Props {
+  title: string;
+  company: string;
+  description: string;
+  link?: string;
+  date: string;
+}
+
+const { title, company, description, link, date } = Astro.props;
+---
+
+<div
+  class="relative mx-12 pb-6 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]">
+  <div class="relative pb-4 md:col-span-2">
+    <div class="sticky top-0">
+      <span class="gradient-heading -left-[42px] absolute rounded-full text-5xl">&bull;</span>
+
+      <h3 class="text-xl font-bold gradient-heading">{title}</h3>
+      <h4 class="font-semibold text-xl text-gray-600 dark:text-white">{company}</h4>
+      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80">{date}</time>
+    </div>
+  </div>
+  <div class="whitespace-pre-line relative flex flex-col gap-2 pb-4 text-sm text-gray-600 dark:text-gray-300 md:text-base md:col-span-3">
+    <p class="leading-normal">{description}</p>
+    {
+      link && (
+        <LinkInline href={link} class="flex items-center text-yellow-400 hover:underline">
+          Saber más
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-4 h-4 ml-1 icon icon-tabler icon-tabler-chevron-right"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 6l6 6l-6 6" />
+          </svg>
+        </LinkInline>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .gradient-heading {
+    display: inline-block;
+    background: linear-gradient(45deg, #4a00e0, /* Púrpura */ #8e2de2 /* Violeta */);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    background-size: 150% 150%;
+    animation:
+      gradient 15s ease infinite,
+      color-shift 10s linear infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes color-shift {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+  }
+</style>
