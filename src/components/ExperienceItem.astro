@@ -47,38 +47,3 @@ const { title, company, description, link, date } = Astro.props;
 </div>
 
 
-<style>
-  .gradient-heading {
-    display: inline-block;
-    background: linear-gradient(45deg, #4a00e0, /* Púrpura */ #8e2de2 /* Violeta */);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-    background-size: 150% 150%;
-    animation:
-      gradient 15s ease infinite,
-      color-shift 10s linear infinite;
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  @keyframes color-shift {
-    0% {
-      filter: hue-rotate(0deg);
-    }
-    100% {
-      filter: hue-rotate(360deg);
-    }
-  }
-</style>
