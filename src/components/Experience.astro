@@ -15,14 +15,21 @@ const EXPERIENCIE = experience.jobs.map((job) => {
   const startDate = new Date(job.roles[0].startDate).toLocaleDateString(locale, options);
   const endDate = job.roles[0].finishDate ? new Date(job.roles[0].finishDate).toLocaleDateString(locale, options) : 'Presente';
 
+  const title = job.roles[0].name.split('|')[0];
+  const description = job.roles
+    .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n📌 Tecnologías')[0]))
+    .flat()
+    .join()
+    .replaceAll('-', () => {
+      const icons = ['💼', '🔥', '💡', '🛠️', '🎯', '📈', '💻', '🔍'];
+      return icons[Math.floor(Math.random() * icons.length)];
+    });
+
   return {
     date: `${startDate} - ${endDate}`,
-    title: job.roles[0].name,
+    title,
     company: job.organization.name,
-    description: job.roles
-      .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n📌 Tecnologías')[0]))
-      .flat()
-      .join(),
+    description,
     link: '',
   };
 });

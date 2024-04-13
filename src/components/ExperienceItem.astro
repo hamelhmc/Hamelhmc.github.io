@@ -23,7 +23,7 @@ const { title, company, description, link, date } = Astro.props;
     </div>
   </div>
   <div class="whitespace-pre-line relative flex flex-col gap-2 pb-4 text-sm text-gray-600 dark:text-gray-300 md:text-base md:col-span-3">
-    <p class="leading-normal">{description.replaceAll('-', '🌟')}</p>
+    <p class="leading-normal text-gray-800 dark:text-gray-200 break-words">{description}</p>
     {
       link && (
         <LinkInline href={link} class="flex items-center text-yellow-400 hover:underline">
@@ -45,5 +45,4 @@ const { title, company, description, link, date } = Astro.props;
     }
   </div>
 </div>
-
-
+</div>
