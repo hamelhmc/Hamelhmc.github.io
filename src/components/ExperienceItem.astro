@@ -1,6 +1,6 @@
 ---
+import { Markdown } from '@astropub/md';
 import LinkInline from './LinkInline.astro';
-
 interface Props {
   title: string;
   company: string;
@@ -12,37 +12,36 @@ interface Props {
 const { title, company, description, link, date } = Astro.props;
 ---
 
-<div class="relative mx-4 md:mx-12 pb-6 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-black/20 dark:before:border-white/15 before:content-[''] md:grid-cols-5 md:gap-10 md:space-x-4]">
-  <div class="relative pb-4 md:col-span-2">
-    <div class="sticky top-0">
-      <span class="gradient-heading -left-[42px] absolute rounded-full text-5xl">&bull;</span>
-
-      <h3 class="text-xl font-bold gradient-heading">{title}</h3>
-      <h4 class="font-semibold text-xl text-gray-600 dark:text-white">{company}</h4>
-      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80">{date}</time>
-    </div>
-  </div>
-  <div class="whitespace-pre-line relative flex flex-col gap-2 pb-4 text-sm text-gray-600 dark:text-gray-300 md:text-base md:col-span-3">
-    <p class="leading-normal text-gray-800 dark:text-gray-200 break-words">{description}</p>
+<section
+  class="relative mx-4 md:mx-12 pb-6 grid before:absolute before:left-[-35px] before:block before:h-full before:border-l-2 before:border-neutral-200 dark:before:border-neutral-700 md:grid-cols-5 md:gap-10">
+  <header class="sticky top-0 pb-4 md:col-span-2">
+    <span class="gradient-heading absolute -left-[42px] rounded-full text-5xl">&bull;</span>
+    <h3 class="text-xl font-bold gradient-heading">{title}</h3>
+    <h4 class="font-semibold text-xl text-gray-600 dark:text-gray-200">{company}</h4>
+    <time class="text-sm text-gray-500 dark:text-gray-400">{date}</time>
+  </header>
+  <main class="relative flex flex-col gap-2 pb-4 text-sm md:text-base md:col-span-3 text-gray-600 dark:text-gray-300">
+    <article class="whitespace-pre-line leading-normal text-gray-800 dark:text-gray-200 break-words">
+      <Markdown of={description} />
+    </article>
     {
       link && (
         <LinkInline href={link} class="flex items-center text-yellow-400 hover:underline">
           Saber más
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="w-4 h-4 ml-1 icon icon-tabler icon-tabler-chevron-right"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
+            class="ml-1 w-4 h-4"
             fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M9 6l6 6l-6 6" />
+            <path d="M9 6l6 6-6 6" />
           </svg>
         </LinkInline>
       )
     }
-  </div>
-</div>
-</div>
+  </main>
+</section>

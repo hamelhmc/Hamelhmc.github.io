@@ -17,7 +17,7 @@ const EXPERIENCIE = experience.jobs.map((job) => {
 
   const title = job.roles[0].name.split('|')[0];
   const description = job.roles
-    .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n📌 Tecnologías')[0]))
+    .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n**📌 Tecnologías Utilizadas**:')[0]))
     .flat()
     .join()
     .replaceAll('-', () => {

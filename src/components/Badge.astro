@@ -1,9 +1,12 @@
 <div class="flex items-center">
   <span class="relative inline-flex overflow-hidden rounded-full p-[1px]">
     <span class="absolute inset-0 animate-pulse bg-gradient-to-r from-yellow-200 to-yellow-500 rounded-full shadow-md"></span>
-    <div
-      class="inline-flex items-center justify-center w-full px-3 py-1 text-sm text-yellow-800 bg-yellow-100 rounded-full cursor-pointer dark:bg-gray-800 dark:text-white/80 backdrop-blur-3xl whitespace-nowrap">
-      <slot />
-    </div>
+    <button
+      class="inline-flex items-center justify-center w-full px-3 py-1 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full cursor-pointer dark:bg-gray-800 dark:text-gray-300 backdrop-blur-3xl whitespace-nowrap"
+      role="button"
+      aria-label="Custom Button">
+      <!-- Use 'button' element for better semantic meaning and accessibility -->
+      <slot /> <!-- Slot for custom content -->
+    </button>
   </span>
 </div>
