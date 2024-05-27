@@ -1,10 +1,10 @@
 ---
 import Badge from '@/components/Badge.astro';
-import SocialPill from '@/components/SocialPill.astro';
-import GitHubIcon from '@/components/icons/GitHub.astro';
 import LinkedInIcon from '@/components/icons/LinkedIn.astro';
 import MailIcon from '@/components/icons/Mail.astro';
+import GitHubIcon from '@/components/icons/GitHub.astro';
 import XIcon from '@/components/icons/X.astro';
+import SocialPill from '@/components/SocialPill.astro';
 import type { Portafolio } from '@/data/model/manfred.interface';
 import { Image } from 'astro:assets';
 import myImage from '../assets/hmc.png';
@@ -14,23 +14,33 @@ const { aboutMe, careerPreferences } = Astro.props as Portafolio;
 const publicProfiles = careerPreferences.contact.publicProfiles;
 const contactMails = careerPreferences.contact.contactMails;
 
-const socialMediaLinks = publicProfiles.reduce(
-  (acc, profile) => {
-    acc[profile.type] = profile.URL;
-    return acc;
-  },
-  { email: contactMails[0] }
-);
+const socialMediaLinks = {
+  linkedin: '',
+  github: '',
+  twitter: '',
+  email: '',
+};
 
+publicProfiles.forEach((profile) => {
+  if (profile.type === 'linkedin') {
+    socialMediaLinks.linkedin = profile.URL;
+  } else if (profile.type === 'github') {
+    socialMediaLinks.github = profile.URL;
+  } else if (profile.type === 'twitter') {
+    socialMediaLinks.twitter = profile.URL;
+  }
+});
+
+socialMediaLinks.email = contactMails[0];
 const [firstParagraph, secondParagraph] = aboutMe.profile.description.split('\n\n');
 const aboutDescriptionParagraph = `${firstParagraph}\n\n${secondParagraph}`;
 ---
 
 <main>
   <section class="flex flex-col md:flex-row items-center md:items-start md:gap-4 mb-4">
-    <Image class="rounded-full shadow-lg w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0" src={myImage} alt={aboutMe.profile.name} loading="lazy" />
+    <Image class="rounded-full shadow-lg w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0" src={myImage} alt={aboutMe.profile.name} />
     <a
-      href="./assets/HAMILTON_MERCADO_CUELLAR_CV.pdf"
+      href={`./assets/HAMILTON_MERCADO_CUELLAR_CV.pdf`}
       target="_blank"
       rel="noopener noreferrer"
       class="btn flex items-center justify-center transition-transform md:hover:scale-105">
@@ -65,12 +75,14 @@ const aboutDescriptionParagraph = `${firstParagraph}\n\n${secondParagraph}`;
 
 <style>
   @keyframes gradient-animation {
-    0%,
-    100% {
+    0% {
       background: linear-gradient(to right, #ffa500, #ffd700);
     }
     50% {
       background: linear-gradient(to right, #ffd700, #ffa500);
+    }
+    100% {
+      background: linear-gradient(to right, #ffa500, #ffd700);
     }
   }
 
