@@ -72,4 +72,4 @@ Copyright (c) 2024 Hamilton Mercado Cuellar
 
 - LinkedIn: [Hamilton Mercado](https://www.linkedin.com/in/hamilton-mercado-cuellar/)
 - GitHub: [@hamelhmc](https://github.com/hamelhmc)
-- Email: Disponible en el portafolio
+- Email: Disponible en el portafolio 
