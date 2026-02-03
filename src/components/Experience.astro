@@ -8,39 +8,119 @@ interface Props {
 
 const { experience } = Astro.props as Props;
 
-const EXPERIENCIE = experience.jobs.map((job) => {
-  const options: Intl.DateTimeFormatOptions = { month: 'short', year: 'numeric' };
-  const locale: string = 'es-ES';
+// Procesar experiencia laboral de forma segura
+interface ExperienceItemProps {
+  date: string;
+  title: string;
+  company: string;
+  description: string;
+  technologies?: string;
+  link?: string;
+}
 
-  const startDate = new Date(job.roles[0].startDate).toLocaleDateString(locale, options);
-  const endDate = job.roles[0].finishDate ? new Date(job.roles[0].finishDate).toLocaleDateString(locale, options) : 'Presente';
+const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
+  .map((job) => {
+    // Verificar que el job tenga roles
+    if (!job.roles || job.roles.length === 0) return null;
 
-  const title = job.roles[0].name.split('|')[0];
-  const description = job.roles
-    .map((role) => role.challenges?.map((challenge) => challenge.description.split('\n\n**📌 Tecnologías Utilizadas**:')[0]))
-    .flat()
-    .join()
-    .replaceAll('-', () => {
-      const icons = ['💼', '🔥', '💡', '🛠️', '🎯', '📈', '💻', '🔍'];
-      return icons[Math.floor(Math.random() * icons.length)];
-    });
+    const role = job.roles[0];
+    const options: Intl.DateTimeFormatOptions = { month: 'short', year: 'numeric' };
+    const locale: string = 'es-ES';
 
-  return {
-    date: `${startDate} - ${endDate}`,
-    title,
-    company: job.organization.name,
-    description,
-    link: '',
-  };
-});
+    // Formatear fechas de forma segura
+    const startDate = role.startDate ? new Date(role.startDate).toLocaleDateString(locale, options) : 'N/A';
+    const endDate = role.finishDate ? new Date(role.finishDate).toLocaleDateString(locale, options) : 'Presente';
+
+    // Extraer título del rol (tomar solo la primera parte si hay pipe)
+    const title = role.name ? role.name.split('|')[0].trim() : 'Sin título';
+
+    // Procesar descripción de los desafíos
+    let description = '';
+    let technologies = '';
+
+    if (role.challenges && role.challenges.length > 0) {
+      const challengeText = role.challenges[0].description || '';
+
+      // Separar descripción de tecnologías
+      const parts = challengeText.split(/\n\n📌 Tecnologías Utilizadas:/i);
+
+      if (parts.length > 1) {
+        // Hay sección de tecnologías separada
+        description = parts[0].trim();
+        technologies = parts[1].trim();
+      } else {
+        // No hay separador, usar toda la descripción
+        description = challengeText.trim();
+      }
+
+      // Limpiar bullet points y formatear
+      description = description
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line.length > 0)
+        .map((line) => {
+          // Convertir "- " en bullet point
+          if (line.startsWith('- ')) {
+            return '• ' + line.substring(2);
+          }
+          return line;
+        })
+        .join('\n');
+
+      // Limpiar tecnologías
+      if (technologies) {
+        technologies = technologies
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => line.length > 0 && line !== '-')
+          .join(', ')
+          .replace(/^- /, '');
+      }
+    }
+
+    // Si no hay descripción, usar un texto por defecto
+    if (!description) {
+      description = `Rol de ${title} en ${job.organization?.name || 'la organización'}.`;
+    }
+
+    const result: ExperienceItemProps = {
+      date: `${startDate} - ${endDate}`,
+      title,
+      company: job.organization?.name || 'Empresa no especificada',
+      description,
+    };
+
+    if (technologies) {
+      result.technologies = technologies;
+    }
+
+    return result;
+  })
+  .filter((item): item is ExperienceItemProps => item !== null);
 ---
 
-<ol class="relative mt-8">
+<div class="relative w-full max-w-6xl mx-auto overflow-x-hidden">
   {
-    EXPERIENCIE.map((experiencie) => (
-      <li class="w-full">
-        <ExperienceItem {...experiencie} />
-      </li>
-    ))
+    EXPERIENCE.length > 0 ? (
+      <div class="space-y-8 lg:space-y-12 overflow-x-hidden">
+        {EXPERIENCE.map((exp) => (
+          <ExperienceItem {...exp} />
+        ))}
+      </div>
+    ) : (
+      <div class="text-center py-16">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gray-100/80 dark:bg-gray-800/80 backdrop-blur-xl mb-6">
+          <svg class="w-10 h-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+            ></path>
+          </svg>
+        </div>
+        <p class="text-gray-600 dark:text-gray-400 text-lg font-medium">No hay experiencia laboral disponible.</p>
+      </div>
+    )
   }
-</ol>
+</div>

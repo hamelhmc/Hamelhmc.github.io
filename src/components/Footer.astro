@@ -32,25 +32,37 @@ publicProfiles.forEach((profile) => {
 socialMediaLinks.email = contactMails[0];
 ---
 
-<footer class="rounded-lg backdrop-blur-lg m-4 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center">
-  <div class="rounded-lg w-full max-w-screen-xl mx-auto flex items-baseline justify-between py-4 px-4 px-8">
+<footer class="rounded-lg backdrop-blur-lg m-4 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center overflow-x-hidden" role="contentinfo">
+  <div class="rounded-lg w-full max-w-screen-xl mx-auto flex items-baseline justify-between py-4 px-4 px-8 overflow-x-hidden">
     <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90 block md:inline-block md:text-left md:mb-2">
       © {currentYear}
-      <a href={Astro.url.href} class="hover:underline">{aboutMe.profile.name}</a>. Todos los derechos reservados
+      <a href={Astro.url.href} class="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">{aboutMe.profile.name}</a>. Todos los derechos reservados
     </span>
-    <ul class="flex flex-wrap justify-center items-center mt-2 sm:mt-3 md:mt-0 gap-2 text-sm font-medium dark:text-white/90 md:justify-end">
-      <SocialPill href={`mailto:${socialMediaLinks.email}`}>
-        <MailIcon class="size-5" />
-      </SocialPill>
-      <SocialPill href={socialMediaLinks.linkedin}>
-        <LinkedInIcon class="size-5" />
-      </SocialPill>
-      <SocialPill href={socialMediaLinks.github}>
-        <GitHubIcon class="size-5" />
-      </SocialPill>
-      <SocialPill href={socialMediaLinks.twitter}>
-        <XIcon class="size-5" />
-      </SocialPill>
+    <ul class="flex flex-wrap justify-center items-center mt-2 sm:mt-3 md:mt-0 gap-2 text-sm font-medium dark:text-white/90 md:justify-end" aria-label="Redes sociales">
+      <li>
+        <SocialPill href={`mailto:${socialMediaLinks.email}`}>
+          <MailIcon class="size-5" />
+          <span class="sr-only">Enviar correo electrónico</span>
+        </SocialPill>
+      </li>
+      <li>
+        <SocialPill href={socialMediaLinks.linkedin}>
+          <LinkedInIcon class="size-5" />
+          <span class="sr-only">Visitar perfil de LinkedIn</span>
+        </SocialPill>
+      </li>
+      <li>
+        <SocialPill href={socialMediaLinks.github}>
+          <GitHubIcon class="size-5" />
+          <span class="sr-only">Visitar perfil de GitHub</span>
+        </SocialPill>
+      </li>
+      <li>
+        <SocialPill href={socialMediaLinks.twitter}>
+          <XIcon class="size-5" />
+          <span class="sr-only">Visitar perfil de X (Twitter)</span>
+        </SocialPill>
+      </li>
     </ul>
   </div>
 </footer>

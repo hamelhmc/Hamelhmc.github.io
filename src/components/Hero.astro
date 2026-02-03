@@ -1,92 +1,213 @@
 ---
-import Badge from '@/components/Badge.astro';
 import LinkedInIcon from '@/components/icons/LinkedIn.astro';
 import MailIcon from '@/components/icons/Mail.astro';
 import GitHubIcon from '@/components/icons/GitHub.astro';
 import XIcon from '@/components/icons/X.astro';
-import SocialPill from '@/components/SocialPill.astro';
 import type { Portafolio } from '@/data/model/manfred.interface';
 import { Image } from 'astro:assets';
 import myImage from '../assets/hmc.png';
 
 const { aboutMe, careerPreferences } = Astro.props as Portafolio;
 
-const publicProfiles = careerPreferences.contact.publicProfiles;
-const contactMails = careerPreferences.contact.contactMails;
+// Extraer datos de contacto de forma segura
+const publicProfiles = careerPreferences?.contact?.publicProfiles || [];
+const contactMails = careerPreferences?.contact?.contactMails || [];
 
+// Organizar links de redes sociales
 const socialMediaLinks = {
-  linkedin: '',
-  github: '',
-  twitter: '',
-  email: '',
+  linkedin: publicProfiles.find((p) => p.type === 'linkedin')?.URL || '',
+  github: publicProfiles.find((p) => p.type === 'github')?.URL || '',
+  twitter: publicProfiles.find((p) => p.type === 'twitter')?.URL || '',
+  email: contactMails[0] || '',
 };
 
-publicProfiles.forEach((profile) => {
-  if (profile.type === 'linkedin') {
-    socialMediaLinks.linkedin = profile.URL;
-  } else if (profile.type === 'github') {
-    socialMediaLinks.github = profile.URL;
-  } else if (profile.type === 'twitter') {
-    socialMediaLinks.twitter = profile.URL;
-  }
-});
+// Procesar descripción - Tomar solo el primer párrafo para clarity (Apple HIG)
+const descriptionParagraphs = aboutMe.profile.description.split('\n\n').filter((p) => p.trim());
+const aboutDescriptionParagraph = descriptionParagraphs[0] || aboutMe.profile.description;
 
-socialMediaLinks.email = contactMails[0];
-const [firstParagraph, secondParagraph] = aboutMe.profile.description.split('\n\n');
-const aboutDescriptionParagraph = `${firstParagraph}\n\n${secondParagraph}`;
+// Procesar título profesional
+const professionalTitle = aboutMe.profile.title.split('|')[0].trim();
+
+// Información de ubicación
+const location = `${aboutMe.profile.location.municipality}, ${aboutMe.profile.location.country}`;
 ---
 
-<main>
-  <section class="flex flex-col md:flex-row items-center md:items-start md:gap-4 mb-4">
-    <Image class="rounded-full shadow-lg w-24 h-24 md:w-32 md:h-32 mb-4 md:mb-0" src={myImage} alt={aboutMe.profile.name} />
-    <a
-      href={`./assets/HAMILTON_MERCADO_CUELLAR_CV.pdf`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn flex items-center justify-center transition-transform md:hover:scale-105">
-      <Badge>Descarga mi CV</Badge>
-    </a>
-  </section>
-  <header class="text-center md:text-left">
-    <h1 class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white">Hola, soy {aboutMe.profile.name}</h1>
-    <h2 class="text-sm font-semibold mt-2 text-gray-800 dark:text-gray-300">{aboutMe.profile.title.split('|')[0].trim()}</h2>
-    <p class="whitespace-pre-line mt-6 text-base md:text-lg lg:text-xl text-gray-800 dark:text-gray-300">
-      {aboutDescriptionParagraph}
-    </p>
-  </header>
-  <nav class="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
-    <SocialPill href={`mailto:${socialMediaLinks.email}`}>
-      <MailIcon class="w-6 h-6 md:w-8 md:h-8" />
-      Contáctame
-    </SocialPill>
-    <SocialPill href={socialMediaLinks.linkedin}>
-      <LinkedInIcon class="w-6 h-6 md:w-8 md:h-8" />
-      LinkedIn
-    </SocialPill>
-    <SocialPill href={socialMediaLinks.github}>
-      <GitHubIcon class="w-6 h-6 md:w-8 md:h-8" />
-      GitHub
-    </SocialPill>
-    <SocialPill href={socialMediaLinks.twitter}>
-      <XIcon class="w-6 h-6 md:w-8 md:h-8" />
-    </SocialPill>
-  </nav>
-</main>
+<!-- Hero con layout responsive - Mobile centered, Desktop side-by-side -->
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-hidden">
+  <!-- Desktop: Two column layout, Mobile: Single column -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start overflow-x-hidden">
+    <!-- Left Column: Profile Info (Mobile: full width, Desktop: 5 cols) -->
+    <div class="lg:col-span-5 space-y-6 animate-fade-in-up">
+      <!-- Profile sin background individual -->
+      <div class="relative overflow-hidden p-8 lg:p-10">
+
+        <div class="relative space-y-6">
+          <!-- Avatar con efecto sutil -->
+          <div class="flex justify-center lg:justify-start">
+            <div class="relative group">
+              <!-- Glow ring muy sutil -->
+              <div
+                class="absolute -inset-2 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                aria-hidden="true">
+              </div>
+
+              <Image
+                class="relative rounded-full w-32 h-32 lg:w-40 lg:h-40 object-cover ring-1 ring-black/5 dark:ring-white/10"
+                src={myImage}
+                alt={`${aboutMe.profile.name} ${aboutMe.profile.surnames}`}
+                width={160}
+                height={160}
+                loading="eager"
+              />
+
+              <!-- Status indicator -->
+              <div
+                class="absolute bottom-2 right-2 w-5 h-5 bg-gradient-to-br from-green-400 to-green-600 rounded-full ring-4 ring-white dark:ring-gray-900"
+                title="Disponible"
+                aria-hidden="true">
+              </div>
+            </div>
+          </div>
+
+          <!-- Name & Title -->
+          <div class="space-y-3 text-center lg:text-left">
+            <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50 leading-tight">
+              {aboutMe.profile.name}
+              <br class="hidden lg:block" />
+              {aboutMe.profile.surnames}
+            </h1>
+
+            <p class="text-lg lg:text-xl font-semibold text-blue-700 dark:text-blue-400">
+              {professionalTitle}
+            </p>
+
+            <div class="flex items-center justify-center lg:justify-start gap-1.5 text-gray-700 dark:text-gray-300">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span class="text-sm font-medium">{location}</span>
+            </div>
+          </div>
+
+          <!-- CTA Button -->
+          <div class="pt-2">
+            <a
+              href={`./assets/HAMILTON_MERCADO_CUELLAR_CV.pdf`}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Descargar CV en formato PDF"
+              class="group relative w-full lg:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 text-[15px] font-semibold text-white bg-blue-600 dark:bg-blue-600 rounded-xl transition-all duration-200 hover:bg-blue-700 dark:hover:bg-blue-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
+              <svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+              </svg>
+              <span>Descargar CV</span>
+            </a>
+          </div>
+
+          <!-- Social Pills con AAA contrast -->
+          <div class="flex flex-wrap justify-center lg:justify-start gap-2 pt-2" role="navigation" aria-label="Redes sociales">
+            {
+              socialMediaLinks.email && (
+                <a
+                  href={`mailto:${socialMediaLinks.email}`}
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-200 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 transition-colors duration-200 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-600/50">
+                  <MailIcon class="w-3.5 h-3.5" aria-hidden="true" />
+                  <span class="hidden sm:inline">Email</span>
+                </a>
+              )
+            }
+            {
+              socialMediaLinks.linkedin && (
+                <a
+                  href={socialMediaLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-200 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 transition-colors duration-200 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-600/50">
+                  <LinkedInIcon class="w-3.5 h-3.5" aria-hidden="true" />
+                  <span class="hidden sm:inline">LinkedIn</span>
+                </a>
+              )
+            }
+            {
+              socialMediaLinks.github && (
+                <a
+                  href={socialMediaLinks.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-200 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 transition-colors duration-200 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-600/50">
+                  <GitHubIcon class="w-3.5 h-3.5" aria-hidden="true" />
+                  <span class="hidden sm:inline">GitHub</span>
+                </a>
+              )
+            }
+            {
+              socialMediaLinks.twitter && (
+                <a
+                  href={socialMediaLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-800 dark:text-gray-200 bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-full hover:bg-white/90 dark:hover:bg-gray-700/90 transition-colors duration-200 border border-white/20 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-600/50">
+                  <XIcon class="w-3.5 h-3.5" aria-hidden="true" />
+                  <span class="sr-only">X</span>
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: About (Mobile: full width, Desktop: 7 cols) -->
+    <div class="lg:col-span-7 animate-fade-in-up animation-delay-200">
+      <!-- About sin background individual -->
+      <div class="relative overflow-hidden p-8 lg:p-12 min-h-[300px] lg:min-h-[400px] flex items-center">
+
+        <div class="relative w-full">
+          <p class="text-[15px] lg:text-[17px] leading-relaxed text-gray-800 dark:text-gray-200 max-w-2xl">
+            {aboutDescriptionParagraph}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
-  @keyframes gradient-animation {
-    0% {
-      background: linear-gradient(to right, #ffa500, #ffd700);
+  /* Optimización de renderizado */
+  div,
+  a,
+  p,
+  h1 {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Animaciones de entrada */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-    50% {
-      background: linear-gradient(to right, #ffd700, #ffa500);
-    }
-    100% {
-      background: linear-gradient(to right, #ffa500, #ffd700);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  .animate-gradient {
-    animation: gradient-animation 3s ease-in-out infinite;
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+    opacity: 0;
   }
 </style>

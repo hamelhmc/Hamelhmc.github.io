@@ -9,12 +9,30 @@ export default defineConfig({
   base: '',
   integrations: [
     tailwind(),
-    robotsTxt(),
+    robotsTxt({
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+          disallow: ['/assets/HAMILTON_MERCADO_CUELLAR_CV.pdf'],
+        },
+      ],
+      sitemap: true,
+    }),
     sitemap({
       changefreq: 'weekly',
-      priority: 0.7,
+      priority: 0.9,
       lastmod: new Date(),
       entryLimit: 10000,
     }),
   ],
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
+  build: {
+    inlineStylesheets: 'auto',
+  },
+  compressHTML: true,
 });

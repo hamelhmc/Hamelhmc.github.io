@@ -12,8 +12,9 @@ const THEMES = ['Light', 'Dark', 'System'];
     aria-haspopup="true"
     aria-expanded="false"
     aria-controls="themes-menu"
-    class="appearance-none border-none flex items-center focus:outline-none hover:scale-125 transition px-4 py-2 md:px-4 md:py-2">
-    <span class="sr-only">Change theme - Choose between Light, Dark, or System default</span>
+    aria-label="Cambiar tema"
+    class="appearance-none border-none flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 hover:scale-125 transition px-4 py-2 md:px-4 md:py-2">
+    <span class="sr-only">Cambiar tema - Elige entre claro, oscuro o predeterminado del sistema</span>
     <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
     <MoonIcon id="dark" class="theme-toggle-icon size-5 transition-all" />
     <SystemIcon id="system" class="theme-toggle-icon size-5 transition-all" />
