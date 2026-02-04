@@ -1,101 +1,190 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import { Image } from 'astro:assets';
+import myLogo from '../assets/hmc.png';
 
 const navItems = [
-  {
-    title: 'Experiencia',
-    label: 'experiencia',
-    url: '/#experiencia',
-  },
-  {
-    title: 'Contacto',
-    label: 'contacto',
-    url: 'mailto:hamiltonmercadocuellar@gmail.com',
-  },
+  { title: 'Experiencia', label: 'experiencia', url: '/#experiencia' },
+  { title: 'Proyectos', label: 'proyectos', url: '/#proyectos' },
+  { title: 'Habilidades', label: 'habilidades', url: '/#habilidades' },
+  { title: 'Formación', label: 'formacion', url: '/#formacion' },
+  { title: 'Sobre Mí', label: 'sobre-mi', url: '/#sobre-mi' },
+  { title: 'Contacto', label: 'contacto', url: '/#contacto' },
 ];
 ---
 
-<header class="fixed top-0 z-50 flex flex-col md:flex-row items-center justify-center w-full mx-auto mt-4 px-4 py-2" role="banner">
-  <nav
-    class="backdrop-blur-xl bg-white/70 dark:bg-gray-900/70 rounded-full shadow-2xl border border-white/30 dark:border-gray-700/30 px-6 py-3 flex items-center gap-2 max-w-full"
-    role="navigation"
-    aria-label="Navegación principal">
-    {
-      navItems.map((link) => (
+<header class="fixed top-0 z-50 w-full" role="banner">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <nav
+      class="mt-4 flex items-center justify-between gap-4 rounded-full px-4 py-2 backdrop-blur-xl bg-white/70 dark:bg-glass-strong border border-gray-200/50 dark:border-glass-border shadow-glass"
+      role="navigation"
+      aria-label="Navegación principal">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 group" aria-label="Ir al inicio">
+        <Image
+          src={myLogo}
+          alt="Logo HMC"
+          width={36}
+          height={36}
+          class="rounded-lg ring-1 ring-black/5 dark:ring-white/10 group-hover:ring-primary/50 transition-all"
+        />
+        <span class="hidden sm:block text-lg font-semibold text-gray-900 dark:text-primary group-hover:text-primary transition-colors">
+          Hamilton
+        </span>
+      </a>
+
+      <!-- Navigation Links - Hidden on mobile -->
+      <div class="hidden md:flex items-center gap-1">
+        {
+          navItems.map((link) => (
+            <a
+              class="relative px-4 py-2 text-sm font-medium text-gray-600 dark:text-txt-secondary hover:text-primary dark:hover:text-primary rounded-full hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
+              aria-label={link.label}
+              href={link.url}>
+              {link.title}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Right side: CTA + Theme Toggle -->
+      <div class="flex items-center gap-3">
         <a
-          class="relative px-5 py-2.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 rounded-full hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
-          aria-label={link.label}
-          href={link.url}>
-          {link.title}
+          href="mailto:hamiltonmercadocuellar@gmail.com"
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-400 dark:hover:to-primary-500 rounded-full shadow-glow-teal transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50">
+          <span>Hablemos</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"></path>
+          </svg>
         </a>
-      ))
-    }
-    <div class="w-px h-6 bg-gray-300 dark:bg-gray-700 mx-2" aria-hidden="true"></div>
-    <ThemeToggle />
-  </nav>
+        <div class="w-px h-6 bg-gray-300 dark:bg-glass-border hidden sm:block" aria-hidden="true"></div>
+        <ThemeToggle />
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden p-2 text-gray-600 dark:text-txt-secondary hover:text-primary rounded-lg hover:bg-primary/5"
+          aria-label="Abrir menú"
+          aria-expanded="false">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Navigation Menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden mt-2 p-4 rounded-2xl backdrop-blur-xl bg-white/90 dark:bg-surface/90 border border-gray-200/50 dark:border-glass-border shadow-glass">
+      <div class="flex flex-col gap-2">
+        {
+          navItems.map((link) => (
+            <a
+              class="px-4 py-3 text-base font-medium text-gray-700 dark:text-txt-secondary hover:text-primary dark:hover:text-primary rounded-xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-all"
+              href={link.url}>
+              {link.title}
+            </a>
+          ))
+        }
+        <a
+          href="mailto:hamiltonmercadocuellar@gmail.com"
+          class="mt-2 flex items-center justify-center gap-2 px-4 py-3 text-base font-semibold text-deep bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl shadow-glow-teal">
+          <span>Hablemos</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7v10"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
 </header>
 
 <script>
   document.addEventListener('astro:page-load', () => {
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
     const sections = document.querySelectorAll('section');
-    const navItems = document.querySelectorAll('header nav a');
+    const navItems = document.querySelectorAll('header nav a[aria-label]');
 
-    const callback = (entries: any) => {
-      entries.forEach((entry: any) => {
-        // Solo se aplicará el efecto al primer elemento encontrado
-        if (!entry.isIntersecting) return;
+    // Mobile menu toggle
+    menuBtn?.addEventListener('click', () => {
+      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu?.classList.toggle('hidden');
+    });
 
-        const navItem = [...navItems].find((item) => `${item.getAttribute('aria-label')}` === entry.target.id);
-        if (navItem) {
-          navItems.forEach((item) => {
-            item.classList.remove('text-blue-600', 'dark:text-blue-400');
-          });
-          navItem.classList.add('text-blue-600', 'dark:text-blue-400');
+    // Close mobile menu when clicking a link
+    mobileMenu?.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // --- Active Section Logic (Highest Visibility) ---
+
+    // Store visibility ratio of each section by ID
+    const visibilityMap = new Map();
+
+    const setActive = (id: string) => {
+      navItems.forEach((item) => {
+        if (item.getAttribute('aria-label') === id) {
+          item.classList.remove('text-gray-600', 'dark:text-txt-secondary');
+          item.classList.add('text-primary', 'dark:text-primary', 'bg-primary/10');
+        } else {
+          item.classList.remove('text-primary', 'dark:text-primary', 'bg-primary/10');
+          item.classList.add('text-gray-600', 'dark:text-txt-secondary');
         }
       });
+    };
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        // Update visibility height (pixels visible on screen)
+        // If not intersecting, value is 0
+        const visibleHeight = entry.isIntersecting ? entry.intersectionRect.height : 0;
+        visibilityMap.set(entry.target.id, visibleHeight);
+      });
+
+      // Determine winner: Section with max visible height
+      let maxVisibleHeight = 0;
+      let activeId = '';
+
+      visibilityMap.forEach((height, id) => {
+        if (height > maxVisibleHeight) {
+          maxVisibleHeight = height;
+          activeId = id;
+        }
+      });
+
+      // Update highlight if we have a clear winner
+      if (activeId && maxVisibleHeight > 0) {
+        setActive(activeId);
+      }
     };
 
     const observer = new IntersectionObserver(callback, {
       root: null,
       rootMargin: '0px',
-      threshold: 0.3,
+      threshold: Array.from({ length: 21 }, (_, i) => i * 0.05), // Check every 5%
     });
 
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
+    sections.forEach((section) => observer.observe(section));
 
-    // Cleanup function
-    const visibilityHandler = () => {
-      if (document.visibilityState === 'hidden') {
-        observer.disconnect();
-      } else {
-        sections.forEach((section) => {
-          observer.observe(section);
-        });
+    // Force Contact at bottom check
+    const onScroll = () => {
+      const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
+      if (isBottom) {
+        setActive('contacto');
       }
     };
 
-    document.addEventListener('visibilitychange', visibilityHandler);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Disconnect the observer when the component unmounts
     return () => {
       observer.disconnect();
-      document.removeEventListener('visibilitychange', visibilityHandler);
+      window.removeEventListener('scroll', onScroll);
     };
   });
 </script>
-
-<style>
-  nav {
-    animation: nav-shadow 1s linear both;
-    animation-timeline: scroll();
-    animation-range: 0 100px;
-  }
-
-  @keyframes nav-shadow {
-    to {
-      @apply shadow-lg ring-1 backdrop-blur bg-gray-300/60 dark:bg-gray-800/60 ring-white/10;
-    }
-  }
-</style>

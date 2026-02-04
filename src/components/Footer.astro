@@ -5,6 +5,9 @@ import LinkedInIcon from '@/components/icons/LinkedIn.astro';
 import MailIcon from '@/components/icons/Mail.astro';
 import GitHubIcon from '@/components/icons/GitHub.astro';
 import XIcon from '@/components/icons/X.astro';
+import { Image } from 'astro:assets';
+import myLogo from '../assets/hmc.png';
+
 const currentYear = new Date().getFullYear();
 
 const { aboutMe, careerPreferences } = Astro.props as Portafolio;
@@ -13,56 +16,97 @@ const publicProfiles = careerPreferences.contact.publicProfiles;
 const contactMails = careerPreferences.contact.contactMails;
 
 const socialMediaLinks = {
-  linkedin: '',
-  github: '',
-  twitter: '',
-  email: '',
+  linkedin: publicProfiles.find((p) => p.type === 'linkedin')?.URL || '',
+  github: publicProfiles.find((p) => p.type === 'github')?.URL || '',
+  twitter: publicProfiles.find((p) => p.type === 'twitter')?.URL || '',
+  email: contactMails[0] || '',
 };
 
-publicProfiles.forEach((profile) => {
-  if (profile.type === 'linkedin') {
-    socialMediaLinks.linkedin = profile.URL;
-  } else if (profile.type === 'github') {
-    socialMediaLinks.github = profile.URL;
-  } else if (profile.type === 'twitter') {
-    socialMediaLinks.twitter = profile.URL;
-  }
-});
-
-socialMediaLinks.email = contactMails[0];
+const location = `${aboutMe.profile.location.municipality}, ${aboutMe.profile.location.region}, ${aboutMe.profile.location.country}`;
 ---
 
-<footer class="rounded-lg backdrop-blur-lg m-4 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center overflow-x-hidden" role="contentinfo">
-  <div class="rounded-lg w-full max-w-screen-xl mx-auto flex items-baseline justify-between py-4 px-4 px-8 overflow-x-hidden">
-    <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90 block md:inline-block md:text-left md:mb-2">
-      © {currentYear}
-      <a href={Astro.url.href} class="hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">{aboutMe.profile.name}</a>. Todos los derechos reservados
-    </span>
-    <ul class="flex flex-wrap justify-center items-center mt-2 sm:mt-3 md:mt-0 gap-2 text-sm font-medium dark:text-white/90 md:justify-end" aria-label="Redes sociales">
-      <li>
-        <SocialPill href={`mailto:${socialMediaLinks.email}`}>
-          <MailIcon class="size-5" />
-          <span class="sr-only">Enviar correo electrónico</span>
-        </SocialPill>
-      </li>
-      <li>
-        <SocialPill href={socialMediaLinks.linkedin}>
-          <LinkedInIcon class="size-5" />
-          <span class="sr-only">Visitar perfil de LinkedIn</span>
-        </SocialPill>
-      </li>
-      <li>
-        <SocialPill href={socialMediaLinks.github}>
-          <GitHubIcon class="size-5" />
-          <span class="sr-only">Visitar perfil de GitHub</span>
-        </SocialPill>
-      </li>
-      <li>
-        <SocialPill href={socialMediaLinks.twitter}>
-          <XIcon class="size-5" />
-          <span class="sr-only">Visitar perfil de X (Twitter)</span>
-        </SocialPill>
-      </li>
-    </ul>
+<footer class="py-12 mt-8" role="contentinfo">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Gradient line separator -->
+    <div class="w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent mb-8" aria-hidden="true"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Left: Logo + Name -->
+      <div class="flex items-center gap-3">
+        <Image src={myLogo} alt="Logo HMC" width={28} height={28} class="rounded-lg" />
+        <span class="text-sm font-medium text-gray-600 dark:text-txt-secondary">
+          {aboutMe.profile.name}
+          {aboutMe.profile.surnames}
+        </span>
+      </div>
+
+      <!-- Center: Location -->
+      <span class="text-sm text-gray-500 dark:text-txt-tertiary">
+        {location}
+      </span>
+
+      <!-- Right: Social links + Copyright -->
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          {
+            socialMediaLinks.email && (
+              <a
+                href={`mailto:${socialMediaLinks.email}`}
+                class="p-2 text-gray-500 dark:text-txt-tertiary hover:text-primary transition-colors"
+                aria-label="Enviar email">
+                <MailIcon class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            socialMediaLinks.linkedin && (
+              <a
+                href={socialMediaLinks.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="p-2 text-gray-500 dark:text-txt-tertiary hover:text-primary transition-colors"
+                aria-label="LinkedIn">
+                <LinkedInIcon class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            socialMediaLinks.github && (
+              <a
+                href={socialMediaLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="p-2 text-gray-500 dark:text-txt-tertiary hover:text-primary transition-colors"
+                aria-label="GitHub">
+                <GitHubIcon class="w-5 h-5" />
+              </a>
+            )
+          }
+          {
+            socialMediaLinks.twitter && (
+              <a
+                href={socialMediaLinks.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="p-2 text-gray-500 dark:text-txt-tertiary hover:text-primary transition-colors"
+                aria-label="Twitter">
+                <XIcon class="w-5 h-5" />
+              </a>
+            )
+          }
+        </div>
+        <span class="hidden md:inline text-xs text-gray-400 dark:text-txt-tertiary">
+          © {currentYear}
+        </span>
+      </div>
+    </div>
+
+    <!-- Mobile copyright -->
+    <div class="md:hidden text-center mt-6">
+      <span class="text-xs text-gray-400 dark:text-txt-tertiary">
+        © {currentYear}
+        {aboutMe.profile.name}. Diseñado con precisión.
+      </span>
+    </div>
   </div>
 </footer>

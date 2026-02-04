@@ -14,12 +14,14 @@ interface ExperienceItemProps {
   title: string;
   company: string;
   description: string;
-  technologies?: string;
+  competences?: { name: string; type: string }[];
   link?: string;
+  isFirst?: boolean;
+  isLast?: boolean;
 }
 
 const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
-  .map((job) => {
+  .map((job, jobIndex, jobsArray) => {
     // Verificar que el job tenga roles
     if (!job.roles || job.roles.length === 0) return null;
 
@@ -34,24 +36,15 @@ const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
     // Extraer título del rol (tomar solo la primera parte si hay pipe)
     const title = role.name ? role.name.split('|')[0].trim() : 'Sin título';
 
-    // Procesar descripción de los desafíos
+    // Procesar descripción de los desafíos (sin tecnologías, usamos competences)
     let description = '';
-    let technologies = '';
 
     if (role.challenges && role.challenges.length > 0) {
       const challengeText = role.challenges[0].description || '';
 
-      // Separar descripción de tecnologías
+      // Separar descripción de tecnologías (ignorar la sección de tecnologías)
       const parts = challengeText.split(/\n\n📌 Tecnologías Utilizadas:/i);
-
-      if (parts.length > 1) {
-        // Hay sección de tecnologías separada
-        description = parts[0].trim();
-        technologies = parts[1].trim();
-      } else {
-        // No hay separador, usar toda la descripción
-        description = challengeText.trim();
-      }
+      description = parts[0].trim();
 
       // Limpiar bullet points y formatear
       description = description
@@ -66,16 +59,6 @@ const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
           return line;
         })
         .join('\n');
-
-      // Limpiar tecnologías
-      if (technologies) {
-        technologies = technologies
-          .split('\n')
-          .map((line) => line.trim())
-          .filter((line) => line.length > 0 && line !== '-')
-          .join(', ')
-          .replace(/^- /, '');
-      }
     }
 
     // Si no hay descripción, usar un texto por defecto
@@ -88,22 +71,21 @@ const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
       title,
       company: job.organization?.name || 'Empresa no especificada',
       description,
+      competences: role.competences || [],
+      isFirst: jobIndex === 0,
+      isLast: jobIndex === jobsArray.length - 1,
     };
-
-    if (technologies) {
-      result.technologies = technologies;
-    }
 
     return result;
   })
   .filter((item): item is ExperienceItemProps => item !== null);
 ---
 
-<div class="relative w-full max-w-6xl mx-auto overflow-x-hidden">
+<div class="relative w-full max-w-6xl mx-auto overflow-x-hidden px-4 sm:px-6 lg:px-8">
   {
     EXPERIENCE.length > 0 ? (
-      <div class="space-y-8 lg:space-y-12 overflow-x-hidden">
-        {EXPERIENCE.map((exp) => (
+      <div class="relative">
+        {EXPERIENCE.map((exp, index) => (
           <ExperienceItem {...exp} />
         ))}
       </div>
@@ -116,7 +98,7 @@ const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
               stroke-linejoin="round"
               stroke-width="1.5"
               d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
-            ></path>
+            />
           </svg>
         </div>
         <p class="text-gray-600 dark:text-gray-400 text-lg font-medium">No hay experiencia laboral disponible.</p>

@@ -1,0 +1,124 @@
+---
+import type { Knowledge, ManfredSpecificData } from '@/data/model/manfred.interface';
+import TechIcon from './TechIcon';
+
+interface Props {
+  knowledge: Knowledge;
+  mainStackTechs: ManfredSpecificData['mainStackTechs'];
+}
+
+const { knowledge, mainStackTechs } = Astro.props;
+
+// Organize skills by category
+const frontendSkills = [
+  'Vue',
+  'Angular',
+  'AngularJS',
+  'Angular2+',
+  'React',
+  'Nuxt.js',
+  'HTML',
+  'CSS',
+  'Tailwind',
+  'Bootstrap',
+  'JavaScript',
+  'TypeScript',
+  'jQuery',
+];
+const backendSkills = ['NodeJS', 'Python', 'PHP', '.Net Core', 'Express', 'Nest', 'GraphQL', 'MongoDB', 'MySQL', 'PostgreSQL', 'SQLServer'];
+const devopsSkills = ['Docker', 'Linux', 'Git', 'GitLab', 'Vite', 'Jest', 'Vitest', 'Jasmine'];
+
+const hardSkills = knowledge.hardSkills.map((s) => s.skill.name);
+
+const categorizeSkills = (skillList: string[]) => skillList.filter((skill) => hardSkills.includes(skill));
+
+const frontend = categorizeSkills(frontendSkills);
+const backend = categorizeSkills(backendSkills);
+const devops = categorizeSkills(devopsSkills);
+---
+
+<section id="habilidades" class="py-24 scroll-mt-20" aria-labelledby="skills-heading">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-primary font-semibold text-sm tracking-[0.2em] uppercase">Habilidades</span>
+      <h2 id="skills-heading" class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-txt-primary tracking-tight">
+        Stack técnico
+      </h2>
+      <p class="text-gray-600 dark:text-txt-secondary text-base md:text-lg max-w-xl mx-auto">
+        Tecnologías y herramientas con las que trabajo día a día
+      </p>
+    </div>
+
+    <!-- Main Stack Grid -->
+    <div class="mb-16">
+      <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Stack Principal</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {
+          mainStackTechs.map((tech) => (
+            <div class="flex flex-col items-center gap-3 p-6 rounded-xl bg-white/50 dark:bg-glass-strong border border-gray-200/50 dark:border-glass-border-strong backdrop-blur-xl transition-all duration-300 hover:scale-105 hover:shadow-glow-teal group">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br f flex items-center justify-center transition-all">
+                <TechIcon name={tech.name} size={32} className="text-primary-600 dark:text-primary-400" />
+              </div>
+              <span class="text-sm font-medium text-gray-800 dark:text-txt-primary text-center">{tech.name}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Skills Categories -->
+    <div class="space-y-12">
+      <!-- Frontend -->
+      {
+        frontend.length > 0 && (
+          <div class="space-y-4">
+            <span class="text-txt-tertiary font-semibold text-xs tracking-[0.15em] uppercase">Frontend</span>
+            <div class="flex flex-wrap gap-2" role="list" aria-label="Frontend skills">
+              {frontend.map((skill) => (
+                <div class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-txt-secondary bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border rounded-full backdrop-blur-xl transition-all hover:text-primary hover:border-primary/30 group">
+                  <TechIcon name={skill} size={16} className="text-primary opacity-70 group-hover:opacity-100" />
+                  <span>{skill}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Backend & Data -->
+      {
+        backend.length > 0 && (
+          <div class="space-y-4">
+            <span class="text-txt-tertiary font-semibold text-xs tracking-[0.15em] uppercase">Backend & Datos</span>
+            <div class="flex flex-wrap gap-2" role="list" aria-label="Backend skills">
+              {backend.map((skill) => (
+                <div class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-txt-secondary bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border rounded-full backdrop-blur-xl transition-all hover:text-primary hover:border-primary/30 group">
+                  <TechIcon name={skill} size={16} className="text-primary opacity-70 group-hover:opacity-100" />
+                  <span>{skill}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <!-- DevOps & Tools -->
+      {
+        devops.length > 0 && (
+          <div class="space-y-4">
+            <span class="text-txt-tertiary font-semibold text-xs tracking-[0.15em] uppercase">DevOps & Herramientas</span>
+            <div class="flex flex-wrap gap-2" role="list" aria-label="DevOps skills">
+              {devops.map((skill) => (
+                <div class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-txt-secondary bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border rounded-full backdrop-blur-xl transition-all hover:text-primary hover:border-primary/30 group">
+                  <TechIcon name={skill} size={16} className="text-primary opacity-70 group-hover:opacity-100" />
+                  <span>{skill}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

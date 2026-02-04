@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+/* Accessibility (AAA) Color Definitions */
+:root {
+  /* Light Mode Text - Darker for contrast */
+  --txt-primary: #18181B;   /* Zinc 900 */
+  --txt-secondary: #52525B; /* Zinc 600 - >7:1 on white */
+  --txt-tertiary: #71717A;  /* Zinc 500 - >4.5:1 on white (Large text ok) */
+}
+
+/* Dark Mode Text - Lighter for contrast */
+.dark {
+  --txt-primary: #F4F4F5;   /* Zinc 100 */
+  --txt-secondary: #E4E4E7; /* Zinc 200 - >10:1 on black */
+  --txt-tertiary: #A1A1AA;  /* Zinc 400 - >7:1 on black */
+}
+
+@theme {
+  /* Colors - Primary */
+  --color-primary: #14B8A6;
+  --color-primary-50: #F0FDFA;
+  --color-primary-100: #CCFBF1;
+  --color-primary-200: #99F6E4;
+  --color-primary-300: #5EEAD4;
+  --color-primary-400: #2DD4BF;
+  --color-primary-500: #14B8A6;
+  --color-primary-600: #0D9488;
+  --color-primary-700: #0F766E;
+  --color-primary-800: #115E59;
+  --color-primary-900: #134E4A;
+
+  /* Colors - Deep */
+  --color-deep: #0A0A0F;
+  --color-deep-warm: #0A0A08;
+
+  /* Colors - Surface */
+  --color-surface: #12121A;
+  --color-surface-warm: #13120E;
+
+  /* Colors - Glass */
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-strong: rgba(255, 255, 255, 0.10);
+  --color-glass-highlight: rgba(255, 255, 255, 0.15);
+  --color-glass-border: rgba(255, 255, 255, 0.10);
+  --color-glass-border-strong: rgba(255, 255, 255, 0.20);
+  
+  /* Colors - Text (Dynamic) */
+  --color-txt-primary: var(--txt-primary);
+  --color-txt-secondary: var(--txt-secondary);
+  --color-txt-tertiary: var(--txt-tertiary);
+  
+  /* Colors - Accent */
+  --color-accent-emerald: #1B6B4A;
+  --color-accent-emerald-light: #2DD4BF;
+
+  /* Fonts */
+  --font-sans: 'Inter', 'Onest Variable', system-ui, sans-serif;
+  
+  /* Border Radius */
+  --radius-pill: 100px;
+  --radius-2xl: 24px;
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+
+  /* Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+  
+  /* Shadows */
+  --shadow-glow-teal: 0 8px 24px -4px rgba(20, 184, 166, 0.25);
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --blur-glass: 20px;
+
+  /* Animations */
+  --animate-fade-in-left: fadeInLeft 0.6s ease-out forwards;
+  --animate-fade-in-up: fadeInUp 0.8s ease-out forwards;
+  --animate-gradient-shift: gradientShift 8s ease-in-out infinite;
+  --animate-glow-pulse: glowPulse 3s ease-in-out infinite;
+
+  @keyframes fadeInLeft {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    50% { background-position: 100% 50%; filter: hue-rotate(45deg); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+}
