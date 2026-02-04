@@ -7,7 +7,7 @@ export default function faviconGenerator(): AstroIntegration {
   return {
     name: 'favicon-generator',
     hooks: {
-      'astro:config:setup': async ({ command }) => {
+      'astro:config:setup': async () => {
         // Run only on build or dev start
         const sourceFile = path.join(process.cwd(), 'src/assets/hmc.png');
         const publicDir = path.join(process.cwd(), 'public');

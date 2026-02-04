@@ -8,6 +8,7 @@ Portafolio web personal construido con Astro, Tailwind CSS y TypeScript. Este pr
 - 🌗 **Modo Claro/Oscuro**: Toggle temático con persistencia y cumplimiento de contraste **WCAG AAA**.
 - ♿ **Accesibilidad**: Navegación reactiva, textos de alto contraste y soporte para lectores de pantalla.
 - 📄 **Integración de CV**: Datos sincronizados desde JSON (modelo Manfred).
+- 🖼️ **OG Image Dinámica**: Generación automática de imágenes sociales con **Satori** y fuentes locales optimizadas.
 - 🚀 **Performance**: Puntuación perfecta en Lighthouse, scrollbar optimizado y carga diferida.
 - 🔍 **SEO Avanzado**: Sitemap automático, metadatos dinámicos y JSON-LD (Schema.org).
 
@@ -16,9 +17,10 @@ Portafolio web personal construido con Astro, Tailwind CSS y TypeScript. Este pr
 - **Astro 5** - Framework de próxima generación (Islands Architecture).
 - **Tailwind CSS v4** - Estilizado moderno con configuración CSS-first (@theme).
 - **React 19** - Componentes interactivos e integración de iconos.
+- **Satori** - Generación de imágenes SVG/PNG para Open Graph en el edge.
 - **TypeScript** - Lógica robusta y tipada.
 - **Developer Icons** - Logos SVG de alta calidad.
-- **Fontsource (Onest)** - Tipografía optimizada y variable.
+- **Fontsource (Onest)** - Tipografía optimizada, variable y servida localmente.
 
 ## Instalación
 
@@ -48,7 +50,7 @@ pnpm preview   # Vista previa de la build
 ├── public/           # Archivos estáticos (favicons, imágenes, CV PDF)
 ├── src/
 │   ├── assets/       # Imágenes y recursos
-│   ├── components/   # Componentes Astro y React
+│   ├── components/   # Componentes (Atomic Design: atoms, molecules, organisms)
 │   ├── layouts/      # Layouts base
 │   ├── pages/        # Rutas y páginas
 │   ├── styles/       # Estilos globales y configuración Tailwind

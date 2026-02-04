@@ -1,7 +1,7 @@
 ---
 import type { Knowledge, AboutMe as AboutMeType } from '@/data/model/manfred.interface';
 import Card from '@/components/atoms/Card.astro';
-import Tag from '@/components/atoms/Tag.astro';
+
 import SectionHeader from '@/components/molecules/SectionHeader.astro';
 import LanguageItem from '@/components/molecules/LanguageItem.astro';
 
@@ -49,15 +49,7 @@ const interests = aboutMe.interestingFacts || [];
       <Card class="h-full p-8" as="article">
         <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Idiomas</span>
         <div class="space-y-4">
-          {
-            languages.map((lang) => (
-              <LanguageItem 
-                name={lang.name} 
-                fullName={lang.fullName} 
-                level={lang.level} 
-              />
-            ))
-          }
+          {languages.map((lang) => <LanguageItem name={lang.name} fullName={lang.fullName} level={lang.level} />)}
         </div>
       </Card>
 
@@ -97,17 +89,17 @@ const interests = aboutMe.interestingFacts || [];
            Actually, let's put it as a separate full-width card below the 3 columns.
       -->
     </div>
-    
+
     {
       desiredJobDescription && (
         <div class="mt-6">
           <Card class="p-8">
-             <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Lo que busco</span>
-             <div class="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-txt-secondary">
-               {desiredJobDescription.split('\n\n').map(p => (
-                 <p class="mb-4 last:mb-0 text-pretty">{p}</p>
-               ))}
-             </div>
+            <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Lo que busco</span>
+            <div class="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-txt-secondary">
+              {desiredJobDescription.split('\n\n').map((p) => (
+                <p class="mb-4 last:mb-0 text-pretty">{p}</p>
+              ))}
+            </div>
           </Card>
         </div>
       )

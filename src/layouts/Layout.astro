@@ -16,7 +16,7 @@ interface Props {
   knowledge?: Knowledge;
 }
 
-const { description, title, ogImageUrl, aboutMe, careerPreferences, knowledge } = Astro.props;
+const { description, title, aboutMe, careerPreferences, knowledge } = Astro.props;
 
 // SEO: Construir URL canónica
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);

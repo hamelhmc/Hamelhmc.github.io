@@ -1,6 +1,6 @@
 ---
 import type { Portafolio } from '@/data/model/manfred.interface';
-import { Image } from 'astro:assets';
+
 import Badge from '@/components/atoms/Badge.astro';
 import Button from '@/components/atoms/Button.astro';
 import SocialLinks from '@/components/molecules/SocialLinks.astro';
@@ -76,8 +76,7 @@ const location = `${aboutMe.profile.location.municipality}, ${aboutMe.profile.lo
           target="_blank"
           rel="noopener noreferrer"
           variant="primary"
-          size="lg"
-        >
+          size="lg">
           <span>Ver CV</span>
           <svg class="w-5 h-5 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -90,11 +89,7 @@ const location = `${aboutMe.profile.location.municipality}, ${aboutMe.profile.lo
         </Button>
 
         <!-- Secondary CTA -->
-        <Button
-          href={`mailto:${socialMediaLinks.email}`}
-          variant="secondary"
-          size="lg"
-        >
+        <Button href={`mailto:${socialMediaLinks.email}`} variant="secondary" size="lg">
           <span>Contactar</span>
           <svg class="w-5 h-5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>

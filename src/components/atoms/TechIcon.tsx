@@ -1,6 +1,6 @@
 /** @jsxImportSource react */
 import * as Icons from 'developer-icons';
-import React from 'react';
+
 
 interface TechIconProps {
   name: string;

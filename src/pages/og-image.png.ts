@@ -4,9 +4,13 @@ import { readFile } from 'node:fs/promises';
 import * as path from 'node:path';
 
 export const GET = async () => {
-  const onestFont = await fetch('https://unpkg.com/@fontsource/inter@5.0.18/files/inter-latin-400-normal.woff').then(res => res.arrayBuffer());
+  const [fontRegular, fontSemiBold, fontExtraBold, imageBuffer] = await Promise.all([
+    readFile(path.join(process.cwd(), 'node_modules/@fontsource/onest/files/onest-latin-400-normal.woff')),
+    readFile(path.join(process.cwd(), 'node_modules/@fontsource/onest/files/onest-latin-600-normal.woff')),
+    readFile(path.join(process.cwd(), 'node_modules/@fontsource/onest/files/onest-latin-800-normal.woff')),
+    readFile(path.join(process.cwd(), 'src/assets/hmc.png'))
+  ]);
 
-  const imageBuffer = await readFile(path.join(process.cwd(), 'src/assets/hmc.png'));
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString('base64')}`;
 
   const svg = await satori(
@@ -21,6 +25,7 @@ export const GET = async () => {
           justifyContent: 'center',
           backgroundColor: '#F9FAFB', // gray-50
           backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.1) 0%, rgba(255, 255, 255, 0) 50%)',
+          fontFamily: 'Onest',
         },
         children: [
           {
@@ -75,7 +80,7 @@ export const GET = async () => {
                       {
                         type: 'p',
                         props: {
-                          children: 'Frontend Developer & UI/UX Geek', // Updated text slightly closer to title
+                          children: 'Frontend Developer', // Updated text slightly closer to title
                           style: {
                             fontSize: '28px',
                             color: '#0D9488', // primary-600
@@ -152,8 +157,21 @@ export const GET = async () => {
       fonts: [
         {
           name: 'Onest',
-          data: onestFont,
+          data: fontRegular,
           style: 'normal',
+          weight: 400,
+        },
+        {
+          name: 'Onest',
+          data: fontSemiBold,
+          style: 'normal',
+          weight: 600,
+        },
+        {
+          name: 'Onest',
+          data: fontExtraBold,
+          style: 'normal',
+          weight: 800,
         },
       ],
     }
@@ -169,3 +187,4 @@ export const GET = async () => {
     },
   });
 };
+

@@ -20,6 +20,9 @@ importers:
       '@fontsource-variable/onest':
         specifier: ^5.2.11
         version: 5.2.11
+      '@fontsource/onest':
+        specifier: ^5.2.11
+        version: 5.2.11
       '@resvg/resvg-js':
         specifier: ^2.6.2
         version: 2.6.2
@@ -402,6 +405,9 @@ packages:
 
   '@fontsource-variable/onest@5.2.11':
     resolution: {integrity: sha512-knJww1KxK4g66+qu90q3CPBvl4zhL5oDRi3/JMkYMmlhW3OgyRgT4MMfgd6jg2lvho7bLPAXfsYPh59h0yzwUA==}
+
+  '@fontsource/onest@5.2.11':
+    resolution: {integrity: sha512-YDOHuJ+HFf4rl6+vBzEoAGul+GyEOIlziepq+7UDT4839LyiFU1clVZqNmqmCRjwWidPTMUJIv1k9e+5UtuQOw==}
 
   '@img/colour@1.0.0':
     resolution: {integrity: sha512-A5P/LfWGFSl6nsckYtjw9da+19jB8hkJ6ACTGcDfEJ0aE+l2n2El7dsVM7UVHZQ9s2lmYMWlrS21YLy2IR1LUw==}
@@ -2843,6 +2849,8 @@ snapshots:
     optional: true
 
   '@fontsource-variable/onest@5.2.11': {}
+
+  '@fontsource/onest@5.2.11': {}
 
   '@img/colour@1.0.0': {}
 

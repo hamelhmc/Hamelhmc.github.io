@@ -85,7 +85,7 @@ const EXPERIENCE: ExperienceItemProps[] = (experience?.jobs || [])
   {
     EXPERIENCE.length > 0 ? (
       <div class="relative">
-        {EXPERIENCE.map((exp, index) => (
+        {EXPERIENCE.map((exp) => (
           <ExperienceItem {...exp} />
         ))}
       </div>
