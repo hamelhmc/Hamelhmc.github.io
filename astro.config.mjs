@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 import robotsTxt from 'astro-robots-txt';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import faviconGenerator from './src/integrations/favicon-generator';
 
 
 // https://astro.build/config
@@ -11,6 +12,7 @@ export default defineConfig({
   base: '',
 
   integrations: [
+    faviconGenerator(),
     react(),
     robotsTxt({
       policy: [

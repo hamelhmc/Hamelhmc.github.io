@@ -93,7 +93,7 @@ const websiteSchema = {
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-TileColor" content="#14B8A6" />
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1a1a1a" />
 
@@ -115,8 +115,8 @@ const websiteSchema = {
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImageUrl, Astro.site)} />
-    <meta property="og:image:alt" content={`Foto de perfil de ${aboutMe.profile.name}`} />
+    <meta property="og:image" content={new URL('/og-image.png', Astro.site)} />
+    <meta property="og:image:alt" content={`Preview de ${aboutMe.profile.name}`} />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content={`${aboutMe.profile.name} ${aboutMe.profile.surnames}`} />
 
@@ -125,8 +125,10 @@ const websiteSchema = {
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImageUrl, Astro.site)} />
-    <meta name="twitter:image:alt" content={`Foto de perfil de ${aboutMe.profile.name}`} />
+    <meta name="twitter:image" content={new URL('/og-image.png', Astro.site)} />
+    <meta name="twitter:image:alt" content={`Preview de ${aboutMe.profile.name}`} />
+    <meta name="twitter:site" content="@hamelhmc" />
+    <meta name="twitter:domain" content="hamelhmc.github.io" />
     {twitterProfile && <meta name="twitter:creator" content={twitterProfile.URL.split('/').pop()} />}
 
     <!-- Structured Data - JSON-LD -->
