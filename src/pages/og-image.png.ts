@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import * as path from 'node:path';
 
 export const GET = async () => {
-  const onestFont = await fetch('https://cdn.jsdelivr.net/fontsource/fonts/onest@latest/latin-400-normal.ttf').then(res => res.arrayBuffer());
+  const onestFont = await fetch('https://raw.githubusercontent.com/capitolinary/onest/main/fonts/ttf/Onest-Regular.ttf').then(res => res.arrayBuffer());
 
   const imageBuffer = await readFile(path.join(process.cwd(), 'src/assets/hmc.png'));
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString('base64')}`;
