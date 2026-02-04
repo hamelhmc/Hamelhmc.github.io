@@ -1,14 +1,15 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Briefcase from '@/components/icons/Briefcase.astro';
-import Experience from '@/components/Experience.astro';
-import SectionContainer from '@/components/SectionContainer.astro';
-import Hero from '@/components/Hero.astro';
-import Skills from '@/components/Skills.astro';
-import AboutMe from '@/components/AboutMe.astro';
-import Contact from '@/components/Contact.astro';
-import Studies from '@/components/Studies.astro';
-import Projects from '@/components/Projects.astro';
+import Experience from '@/components/organisms/Experience.astro';
+import SectionContainer from '@/components/atoms/SectionContainer.astro';
+import Hero from '@/components/organisms/Hero.astro';
+import Skills from '@/components/organisms/Skills.astro';
+import Philosophy from '@/components/organisms/Philosophy.astro';
+import AboutMe from '@/components/organisms/AboutMe.astro';
+import Contact from '@/components/organisms/Contact.astro';
+import Studies from '@/components/organisms/Studies.astro';
+import Projects from '@/components/organisms/Projects.astro';
 import type { Portafolio } from '@/data/model/manfred.interface';
 
 // SSR: Fetch data at build time
@@ -59,6 +60,9 @@ const aboutDescriptionParagraph = portafolio.aboutMe.profile.description.split('
     <!-- Skills Section -->
     <Skills knowledge={portafolio.knowledge} mainStackTechs={portafolio.manfredSpecificData.mainStackTechs} />
 
+    <!-- Philosophy/Good Practices Section -->
+    <Philosophy goodPractices={portafolio.manfredSpecificData.goodPractices} />
+
     <!-- Studies Section -->
     <Studies knowledge={portafolio.knowledge} />
 
@@ -66,40 +70,13 @@ const aboutDescriptionParagraph = portafolio.aboutMe.profile.description.split('
     <Projects experience={portafolio.experience} />
 
     <!-- About Me Section -->
-    <AboutMe knowledge={portafolio.knowledge} aboutMe={portafolio.aboutMe} />
+    <AboutMe
+      knowledge={portafolio.knowledge}
+      aboutMe={portafolio.aboutMe}
+      desiredJobDescription={portafolio.manfredSpecificData.desiredJobDescription}
+    />
 
     <!-- Contact Section -->
     <Contact careerPreferences={portafolio.careerPreferences} />
   </div>
 </Layout>
-
-<!-- Client-side data refresh (daily) -->
-<script>
-  const CV_URL = 'https://raw.githubusercontent.com/hamelhmc/manfred/main/CV/MAC.json';
-  const REFRESH_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours
-  const LAST_CHECK_KEY = 'cv_last_check';
-
-  async function checkForUpdates() {
-    try {
-      const lastCheck = localStorage.getItem(LAST_CHECK_KEY);
-      const now = Date.now();
-
-      if (lastCheck && now - parseInt(lastCheck) < REFRESH_INTERVAL) {
-        return; // Skip if checked within 24 hours
-      }
-
-      const response = await fetch(CV_URL, { cache: 'no-cache' });
-      if (response.ok) {
-        localStorage.setItem(LAST_CHECK_KEY, now.toString());
-        console.log('[CV] Data check completed');
-      }
-    } catch (error) {
-      console.warn('[CV] Failed to check for updates:', error);
-    }
-  }
-
-  // Check on page load
-  document.addEventListener('astro:page-load', () => {
-    setTimeout(checkForUpdates, 5000); // Delay to not block initial render
-  });
-</script>

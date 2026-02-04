@@ -1,0 +1,14 @@
+---
+interface Props {
+  class?: string;
+  as?: string;
+}
+
+const { class: className, as: Tag = 'div', ...rest } = Astro.props;
+
+const baseStyles = "rounded-2xl bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border backdrop-blur-xl";
+---
+
+<Tag class:list={[baseStyles, className]} {...rest}>
+  <slot />
+</Tag>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  badge: string;
+  title: string;
+  id?: string;
+  class?: string;
+}
+
+const { badge, title, id, class: className } = Astro.props;
+---
+
+<div class:list={["text-center mb-16 space-y-4", className]}>
+  <span class="text-primary font-semibold text-sm tracking-[0.2em] uppercase block">{badge}</span>
+  <h2 
+    id={id} 
+    class="text-balance text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-txt-primary tracking-tight"
+  >
+    {title}
+  </h2>
+</div>

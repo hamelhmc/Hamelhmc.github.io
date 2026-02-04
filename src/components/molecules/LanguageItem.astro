@@ -1,0 +1,26 @@
+---
+import ProgressBar from '@/components/atoms/ProgressBar.astro';
+
+interface Props {
+  name: string;
+  fullName: string;
+  level: string;
+}
+
+const { name, fullName, level } = Astro.props;
+
+const getPercent = (lvl: string) => {
+  if (lvl.includes('Native')) return 100;
+  if (lvl.includes('Full')) return 90;
+  if (lvl.includes('Professional')) return 75;
+  return 50;
+};
+---
+
+<div class="space-y-2">
+  <div class="flex items-center justify-between">
+    <span class="text-gray-800 dark:text-txt-primary font-medium">{fullName}</span>
+    <span class="text-xs text-gray-500 dark:text-txt-tertiary">{name}</span>
+  </div>
+  <ProgressBar percent={getPercent(level)} label={level} />
+</div>

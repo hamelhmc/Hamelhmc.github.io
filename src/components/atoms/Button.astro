@@ -1,0 +1,53 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  download?: boolean;
+  target?: string;
+  rel?: string;
+  'aria-label'?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary', 
+  size = 'md', 
+  class: className,
+  ...rest 
+} = Astro.props;
+
+const baseStyles = "group inline-flex items-center justify-center gap-2 font-semibold rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
+
+const variants = {
+  primary: "text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-400 dark:hover:to-primary-500 shadow-glow-teal focus:ring-primary/50 dark:focus:ring-offset-deep",
+  secondary: "text-gray-700 dark:text-txt-primary bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border-strong hover:bg-white/80 dark:hover:bg-glass-strong backdrop-blur-xl focus:ring-primary/50",
+  ghost: "text-gray-600 dark:text-txt-secondary hover:text-primary dark:hover:text-primary hover:bg-white/10 dark:hover:bg-white/5"
+};
+
+const sizes = {
+  sm: "px-4 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-base"
+};
+
+const classes = [
+  baseStyles,
+  variants[variant],
+  sizes[size],
+  className
+].join(' ');
+---
+
+{
+  href ? (
+    <a href={href} class={classes} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button class={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

@@ -1,0 +1,36 @@
+---
+import SectionContainer from '@/components/atoms/SectionContainer.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import Card from '@/components/atoms/Card.astro';
+
+interface Props {
+  goodPractices: string;
+}
+
+const { goodPractices } = Astro.props;
+
+// Process the text to split by newlines and filter empty strings
+const paragraphs = goodPractices
+  ? goodPractices.split('\n\n').filter((p) => p.trim().length > 0)
+  : [];
+---
+
+{
+  paragraphs.length > 0 && (
+    <section id="filosofia" class="py-24 scroll-mt-20" aria-labelledby="philosophy-heading">
+      <SectionContainer>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeader badge="Metodología" title="Filosofía de trabajo" id="philosophy-heading" />
+
+          <Card class="p-8 md:p-10">
+            <div class="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-txt-secondary leading-relaxed">
+              {paragraphs.map((paragraph) => (
+                <p class="mb-6 last:mb-0 text-pretty">{paragraph}</p>
+              ))}
+            </div>
+          </Card>
+        </div>
+      </SectionContainer>
+    </section>
+  )
+}

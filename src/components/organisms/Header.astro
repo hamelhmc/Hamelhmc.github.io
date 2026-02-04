@@ -1,7 +1,7 @@
 ---
-import ThemeToggle from './ThemeToggle.astro';
+import ThemeToggle from '../molecules/ThemeToggle.astro';
 import { Image } from 'astro:assets';
-import myLogo from '../assets/hmc.png';
+import myLogo from '../../assets/hmc.png';
 
 const navItems = [
   { title: 'Experiencia', label: 'experiencia', url: '/#experiencia' },
@@ -26,6 +26,7 @@ const navItems = [
           alt="Logo HMC"
           width={36}
           height={36}
+          loading="eager"
           class="rounded-lg ring-1 ring-black/5 dark:ring-white/10 group-hover:ring-primary/50 transition-all"
         />
         <span class="hidden sm:block text-lg font-semibold text-gray-900 dark:text-primary group-hover:text-primary transition-colors">
@@ -101,30 +102,50 @@ const navItems = [
 </header>
 
 <script>
+  let cleanup: (() => void) | undefined;
+
   document.addEventListener('astro:page-load', () => {
+    // Cleanup previous listeners if they exist (though astro:page-load usually means a fresh run on new content,
+    // strictly robust patterns help avoid edge cases or double-invocations).
+    if (cleanup) cleanup();
+
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('header nav a[aria-label]');
 
-    // Mobile menu toggle
-    menuBtn?.addEventListener('click', () => {
-      const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!isExpanded));
-      mobileMenu?.classList.toggle('hidden');
-    });
+    // Controller to abort all listeners on cleanup
+    const controller = new AbortController();
+    const { signal } = controller;
 
-    // Close mobile menu when clicking a link
-    mobileMenu?.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        menuBtn?.setAttribute('aria-expanded', 'false');
+    // Mobile menu toggle
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener(
+        'click',
+        () => {
+          const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+          menuBtn.setAttribute('aria-expanded', String(!isExpanded));
+          mobileMenu.classList.toggle('hidden');
+        },
+        { signal }
+      );
+
+      // Close mobile menu when clicking a link
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener(
+          'click',
+          () => {
+            mobileMenu.classList.add('hidden');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          },
+          { signal }
+        );
       });
-    });
+    }
 
     // --- Active Section Logic (Highest Visibility) ---
+    // Using IntersectionObserver is efficient, but we need to disconnect it.
 
-    // Store visibility ratio of each section by ID
     const visibilityMap = new Map();
 
     const setActive = (id: string) => {
@@ -141,13 +162,10 @@ const navItems = [
 
     const callback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        // Update visibility height (pixels visible on screen)
-        // If not intersecting, value is 0
         const visibleHeight = entry.isIntersecting ? entry.intersectionRect.height : 0;
         visibilityMap.set(entry.target.id, visibleHeight);
       });
 
-      // Determine winner: Section with max visible height
       let maxVisibleHeight = 0;
       let activeId = '';
 
@@ -158,33 +176,37 @@ const navItems = [
         }
       });
 
-      // Update highlight if we have a clear winner
       if (activeId && maxVisibleHeight > 0) {
-        setActive(activeId);
+        requestAnimationFrame(() => setActive(activeId));
       }
     };
 
     const observer = new IntersectionObserver(callback, {
       root: null,
       rootMargin: '0px',
-      threshold: Array.from({ length: 21 }, (_, i) => i * 0.05), // Check every 5%
+      threshold: Array.from({ length: 21 }, (_, i) => i * 0.05),
     });
 
     sections.forEach((section) => observer.observe(section));
 
     // Force Contact at bottom check
     const onScroll = () => {
+      // Defensive check for document existence
+      if (!document.body) return;
+
       const isBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 20;
       if (isBottom) {
         setActive('contacto');
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    // Use passive listener for better scroll performance
+    window.addEventListener('scroll', onScroll, { passive: true, signal });
 
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', onScroll);
+    // Define cleanup function for this execution context
+    cleanup = () => {
+      controller.abort(); // Removes event listeners attached with signal
+      observer.disconnect(); //Stops observer
     };
   });
 </script>

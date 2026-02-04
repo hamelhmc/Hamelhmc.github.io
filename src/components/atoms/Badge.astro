@@ -1,0 +1,48 @@
+---
+interface Props {
+  variant?: 'success' | 'warning' | 'neutral';
+  animate?: boolean;
+  class?: string;
+}
+
+const { variant = 'neutral', animate = false, class: className } = Astro.props;
+
+const variants = {
+  success: {
+    container: "bg-white/50 dark:bg-glass border-gray-200/50 dark:border-glass-border",
+    dot: "bg-emerald-500",
+    ping: "bg-emerald-400",
+    text: "text-gray-700 dark:text-txt-secondary"
+  },
+  warning: {
+    container: "bg-yellow-50/50 dark:bg-yellow-900/20 border-yellow-200/50 dark:border-yellow-700/30",
+    dot: "bg-yellow-500",
+    ping: "bg-yellow-400",
+    text: "text-yellow-700 dark:text-yellow-200"
+  },
+  neutral: {
+    container: "bg-gray-100/50 dark:bg-gray-800/50 border-gray-200/50 dark:border-gray-700/30",
+    dot: "bg-gray-500",
+    ping: "bg-gray-400",
+    text: "text-gray-600 dark:text-gray-300"
+  }
+};
+
+const style = variants[variant];
+---
+
+<div
+  class:list={[
+    "inline-flex items-center gap-3 px-5 py-2.5 rounded-full border backdrop-blur-xl shadow-sm",
+    style.container,
+    className
+  ]}
+>
+  <span class="relative flex h-2.5 w-2.5">
+    {animate && <span class:list={["animate-ping absolute inline-flex h-full w-full rounded-full opacity-75", style.ping]}></span>}
+    <span class:list={["relative inline-flex rounded-full h-2.5 w-2.5", style.dot]}></span>
+  </span>
+  <span class:list={["text-sm font-medium", style.text]}>
+    <slot />
+  </span>
+</div>

@@ -1,12 +1,17 @@
 ---
 import type { Knowledge, AboutMe as AboutMeType } from '@/data/model/manfred.interface';
+import Card from '@/components/atoms/Card.astro';
+import Tag from '@/components/atoms/Tag.astro';
+import SectionHeader from '@/components/molecules/SectionHeader.astro';
+import LanguageItem from '@/components/molecules/LanguageItem.astro';
 
 interface Props {
   knowledge: Knowledge;
   aboutMe: AboutMeType;
+  desiredJobDescription?: string;
 }
 
-const { knowledge, aboutMe } = Astro.props;
+const { knowledge, aboutMe, desiredJobDescription } = Astro.props;
 
 // Soft skills
 const softSkills = knowledge.softSkills.map((s) => s.skill.name);
@@ -21,17 +26,12 @@ const interests = aboutMe.interestingFacts || [];
 <section id="sobre-mi" class="py-24 scroll-mt-20" aria-labelledby="about-heading">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
-    <div class="text-center mb-16 space-y-4">
-      <span class="text-primary font-semibold text-sm tracking-[0.2em] uppercase">Sobre Mí</span>
-      <h2 id="about-heading" class="text-balance text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-txt-primary tracking-tight">
-        Más allá del código
-      </h2>
-    </div>
+    <SectionHeader badge="Sobre Mí" title="Más allá del código" id="about-heading" />
 
     <!-- Cards Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Soft Skills Card -->
-      <article class="h-full p-8 rounded-2xl bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border backdrop-blur-xl">
+      <Card class="h-full p-8" as="article">
         <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Habilidades Blandas</span>
         <ul class="space-y-4" role="list">
           {
@@ -43,45 +43,26 @@ const interests = aboutMe.interestingFacts || [];
             ))
           }
         </ul>
-      </article>
+      </Card>
 
       <!-- Languages Card -->
-      <article class="h-full p-8 rounded-2xl bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border backdrop-blur-xl">
+      <Card class="h-full p-8" as="article">
         <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Idiomas</span>
         <div class="space-y-4">
           {
             languages.map((lang) => (
-              <div class="space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-800 dark:text-txt-primary font-medium">{lang.fullName}</span>
-                  <span class="text-xs text-gray-500 dark:text-txt-tertiary">{lang.name}</span>
-                </div>
-                <div
-                  class="w-full h-1.5 bg-gray-200 dark:bg-glass-strong rounded-full overflow-hidden"
-                  role="progressbar"
-                  aria-label={`Nivel de ${lang.fullName}`}>
-                  <div
-                    class="h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full transition-all duration-500"
-                    style={`width: ${
-                      lang.level.includes('Native')
-                        ? '100%'
-                        : lang.level.includes('Full')
-                        ? '90%'
-                        : lang.level.includes('Professional')
-                        ? '75%'
-                        : '50%'
-                    }`}
-                  />
-                </div>
-                <span class="text-xs text-gray-500 dark:text-txt-tertiary">{lang.level}</span>
-              </div>
+              <LanguageItem 
+                name={lang.name} 
+                fullName={lang.fullName} 
+                level={lang.level} 
+              />
             ))
           }
         </div>
-      </article>
+      </Card>
 
       <!-- Interests Card -->
-      <article class="h-full p-8 rounded-2xl bg-white/50 dark:bg-glass border border-gray-200/50 dark:border-glass-border backdrop-blur-xl">
+      <Card class="h-full p-8" as="article">
         <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Intereses</span>
         {
           interests.length > 0 ? (
@@ -107,7 +88,29 @@ const interests = aboutMe.interestingFacts || [];
             </p>
           )
         }
-      </article>
+      </Card>
+
+      <!-- Desired Job Card (Spans full width on mobile, maybe 2 cols on wide if we had 4 cols, but here we keep grid flow) -->
+      <!-- Let's make it span full width of the grid container if we want, or just another card. 
+           Given the grid is cols-3, adding a 4th card might look uneven unless we adjust layout.
+           Let's place it as a full-width item below the main 3 cards, or modify grid to fit.
+           Actually, let's put it as a separate full-width card below the 3 columns.
+      -->
     </div>
+    
+    {
+      desiredJobDescription && (
+        <div class="mt-6">
+          <Card class="p-8">
+             <span class="text-primary font-semibold text-xs tracking-[0.15em] uppercase mb-6 block">Lo que busco</span>
+             <div class="prose prose-sm dark:prose-invert max-w-none text-gray-600 dark:text-txt-secondary">
+               {desiredJobDescription.split('\n\n').map(p => (
+                 <p class="mb-4 last:mb-0 text-pretty">{p}</p>
+               ))}
+             </div>
+          </Card>
+        </div>
+      )
+    }
   </div>
 </section>

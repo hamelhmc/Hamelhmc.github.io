@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import * as path from 'node:path';
 
 export const GET = async () => {
-  const onestFont = await fetch('https://raw.githubusercontent.com/capitolinary/onest/main/fonts/ttf/Onest-Regular.ttf').then(res => res.arrayBuffer());
+  const onestFont = await fetch('https://unpkg.com/@fontsource/inter@5.0.18/files/inter-latin-400-normal.woff').then(res => res.arrayBuffer());
 
   const imageBuffer = await readFile(path.join(process.cwd(), 'src/assets/hmc.png'));
   const imageBase64 = `data:image/png;base64,${imageBuffer.toString('base64')}`;
@@ -19,8 +19,8 @@ export const GET = async () => {
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#0A0A0F',
-          backgroundImage: 'radial-gradient(circle at 50% 50%, #14B8A6 0%, #0A0A0F 50%)',
+          backgroundColor: '#F9FAFB', // gray-50
+          backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.1) 0%, rgba(255, 255, 255, 0) 50%)',
         },
         children: [
           {
@@ -30,23 +30,24 @@ export const GET = async () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundColor: '#12121A', // Surface color
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(229, 231, 235, 1)', // gray-200
                 borderRadius: '24px',
-                padding: '40px 60px',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+                padding: '40px 80px',
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
               },
               children: [
                 {
                   type: 'img',
                   props: {
                     src: imageBase64,
-                    width: 120,
-                    height: 120,
+                    width: 140,
+                    height: 140,
                     style: {
-                      borderRadius: '50%',
-                      marginRight: '40px',
-                      border: '4px solid #14B8A6',
+                      borderRadius: '24px',
+                      marginRight: '48px',
+                      border: '1px solid rgba(20, 184, 166, 0.2)', // primary-200 equivalent
+                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                     },
                   },
                 },
@@ -56,7 +57,6 @@ export const GET = async () => {
                     style: {
                       display: 'flex',
                       flexDirection: 'column',
-                      color: 'white',
                     },
                     children: [
                       {
@@ -64,26 +64,79 @@ export const GET = async () => {
                         props: {
                           children: 'Hamilton Mercado',
                           style: {
-                            fontSize: '48px',
+                            fontSize: '56px',
                             fontWeight: 800,
-                            margin: '0 0 10px 0',
-                            background: 'linear-gradient(to right, #2DD4BF, #F0FDFA)',
-                            backgroundClip: 'text',
-                            color: 'transparent',
+                            margin: '0 0 8px 0',
+                            color: '#111827', // gray-900
+                            letterSpacing: '-0.025em',
                           },
                         },
                       },
                       {
                         type: 'p',
                         props: {
-                          children: 'Desarrollador Custom & Full Stack',
+                          children: 'Frontend Developer & UI/UX Geek', // Updated text slightly closer to title
                           style: {
-                            fontSize: '24px',
-                            color: '#A1A1AA',
-                            margin: 0,
+                            fontSize: '28px',
+                            color: '#0D9488', // primary-600
+                            margin: '0 0 16px 0',
+                            fontWeight: 600,
                           },
                         },
                       },
+                      {
+                        type: 'div',
+                        props: {
+                          style: {
+                            display: 'flex',
+                            gap: '12px',
+                            alignItems: 'center',
+                          },
+                          children: [
+                            {
+                              type: 'span',
+                              props: {
+                                children: 'Angular',
+                                style: {
+                                  fontSize: '18px',
+                                  padding: '4px 12px',
+                                  backgroundColor: '#FEF2F2',
+                                  color: '#DC2626',
+                                  borderRadius: '999px',
+                                  marginRight: '8px',
+                                }
+                              }
+                            },
+                            {
+                              type: 'span',
+                              props: {
+                                children: 'Vue',
+                                style: {
+                                  fontSize: '18px',
+                                  padding: '4px 12px',
+                                  backgroundColor: '#ECFDF5',
+                                  color: '#059669',
+                                  borderRadius: '999px',
+                                  marginRight: '8px',
+                                }
+                              }
+                            },
+                            {
+                              type: 'span',
+                              props: {
+                                children: 'TypeScript',
+                                style: {
+                                  fontSize: '18px',
+                                  padding: '4px 12px',
+                                  backgroundColor: '#EFF6FF',
+                                  color: '#2563EB',
+                                  borderRadius: '999px',
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
                     ],
                   },
                 },

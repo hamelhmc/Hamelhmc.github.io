@@ -1,6 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import type { Experience } from '@/data/model/manfred.interface';
-import SectionContainer from './SectionContainer.astro';
+import SectionContainer from '../atoms/SectionContainer.astro';
 
 interface Props {
   experience: Experience;
@@ -20,7 +21,9 @@ const projects = experience?.projects || [];
           {/* Header */}
           <div class="text-center space-y-4 mb-16">
             <span class="text-primary font-semibold text-sm tracking-[0.2em] uppercase">Proyectos</span>
-            <h2 id="projects-heading" class="text-balance text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-txt-primary tracking-tight">
+            <h2
+              id="projects-heading"
+              class="text-balance text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-txt-primary tracking-tight">
               Proyectos personales
             </h2>
             <p class="text-gray-600 dark:text-txt-secondary text-base md:text-lg max-w-xl mx-auto">Proyectos open source y side projects</p>
@@ -33,11 +36,12 @@ const projects = experience?.projects || [];
                 {/* Project Image */}
                 {project.details.image && (
                   <div class="relative mb-4 rounded-xl overflow-hidden aspect-video bg-gray-100 dark:bg-gray-800">
-                    <img
+                    <Image
                       src={project.details.image.link}
                       alt={project.details.image.alt || project.details.name}
+                      width={600}
+                      height={338}
                       class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
                     />
                   </div>
                 )}

@@ -1,0 +1,25 @@
+---
+interface Props {
+  percent: number;
+  label?: string; // e.g. "Full Professional"
+  class?: string;
+}
+
+const { percent, label, class: className } = Astro.props;
+---
+
+<div class:list={["w-full", className]}>
+  <div
+    class="w-full h-1.5 bg-gray-200 dark:bg-glass-strong rounded-full overflow-hidden"
+    role="progressbar"
+    aria-valuenow={percent}
+    aria-valuemin={0}
+    aria-valuemax={100}
+  >
+    <div
+      class="h-full bg-gradient-to-r from-primary-400 to-primary-500 rounded-full transition-all duration-500"
+      style={`width: ${percent}%`}
+    />
+  </div>
+  {label && <span class="text-xs text-gray-500 dark:text-txt-tertiary mt-1 block">{label}</span>}
+</div>
