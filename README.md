@@ -4,21 +4,21 @@ Portafolio web personal construido con Astro, Tailwind CSS y TypeScript. Este pr
 
 ## Características
 
-- Diseño responsivo optimizado para móviles, tablets y escritorio
-- Modo claro/oscuro
-- Integración con datos de CV desde JSON externo (Manfred)
-- SEO optimizado con sitemap y robots.txt
-- Iconos personalizados y componentes reutilizables
-- Animaciones y transiciones suaves
-- Despliegue automatizado en GitHub Pages
+- 🎨 **Diseño Moderno & Responsivo**: Interfaz premium con animaciones suaves y soporte total para móviles/desktop.
+- 🌗 **Modo Claro/Oscuro**: Toggle temático con persistencia y cumplimiento de contraste **WCAG AAA**.
+- ♿ **Accesibilidad**: Navegación reactiva, textos de alto contraste y soporte para lectores de pantalla.
+- 📄 **Integración de CV**: Datos sincronizados desde JSON (modelo Manfred).
+- 🚀 **Performance**: Puntuación perfecta en Lighthouse, scrollbar optimizado y carga diferida.
+- 🔍 **SEO Avanzado**: Sitemap automático, metadatos dinámicos y JSON-LD (Schema.org).
 
 ## Tecnologías
 
-- **Astro 4.9** - Framework web moderno
-- **TypeScript** - Tipado estático
-- **Tailwind CSS** - Framework CSS utility-first
-- **Fontsource Variable Onest** - Tipografía personalizada
-- Sitemap y robots.txt automatizados
+- **Astro 5** - Framework de próxima generación (Islands Architecture).
+- **Tailwind CSS v4** - Estilizado moderno con configuración CSS-first (@theme).
+- **React 19** - Componentes interactivos e integración de iconos.
+- **TypeScript** - Lógica robusta y tipada.
+- **Developer Icons** - Logos SVG de alta calidad.
+- **Fontsource (Onest)** - Tipografía optimizada y variable.
 
 ## Instalación
 
@@ -47,13 +47,14 @@ pnpm preview   # Vista previa de la build
 /
 ├── public/           # Archivos estáticos (favicons, imágenes, CV PDF)
 ├── src/
-│   ├── assets/      # Imágenes y recursos
-│   ├── components/  # Componentes Astro reutilizables
-│   ├── layouts/     # Layouts de página
-│   ├── pages/       # Páginas de la aplicación
-│   └── data/        # Modelos e interfaces TypeScript
-├── astro.config.mjs # Configuración de Astro
-└── tailwind.config.mjs # Configuración de Tailwind
+│   ├── assets/       # Imágenes y recursos
+│   ├── components/   # Componentes Astro y React
+│   ├── layouts/      # Layouts base
+│   ├── pages/        # Rutas y páginas
+│   ├── styles/       # Estilos globales y configuración Tailwind
+│   └── data/         # Modelos e interfaces TypeScript
+├── astro.config.mjs  # Configuración de Astro
+└── package.json      # Dependencias y scripts
 ```
 
 ## Despliegue
